@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Festival Lineup 2026</title>
+  <meta name="description" content="Interactive festival lineup with admin CMS - works as a static site or inside WordPress.">
+  <style>
+    /* Minimal page reset */
+    html,body{height:100%;margin:0;padding:0;background:#fff;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+  </style>
+</head>
+<body>
+
+<!--
+=============================================================================
+PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
+=============================================================================
+--> 
+
+<div id="festivalLineupRoot" data-theme="light">
+<style>
+/* Scoped Festival Lineup Styles - Won't conflict with WordPress theme */
+#festivalLineupRoot {
+    --primary: #FF6B35;
+    --primary-dark: #E55A2B;
+    --secondary: #004E89;
+    --accent: #F7B801;
+    --success: #4CAF50;
+    --danger: #F44336;
+    
+    --text-dark: #1A1A1A;
+    --text-medium: #4A4A4A;
+    --text-light: #777777;
+    
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F9FAFB;
+    --bg-tertiary: #F3F4F6;
+    
+    --border: #E5E7EB;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-dark);
+    line-height: 1.6;
+    position: relative;
+}
+
+#festivalLineupRoot[data-theme="dark"] {
+    --text-dark: #F9FAFB;
+    --text-medium: #D1D5DB;
+    --text-light: #9CA3AF;
+    --bg-primary: #1F2937;
+    --bg-secondary: #111827;
+    --bg-tertiary: #374151;
+    --border: #374151;
+}
+
+#festivalLineupRoot *,
+#festivalLineupRoot *::before,
+#festivalLineupRoot *::after {
+    box-sizing: border-box;
+}
+
+#festivalLineupRoot .lineup-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+#festivalLineupRoot .lineup-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid var(--primary);
+    position: relative;
+}
+
+#festivalLineupRoot .lineup-header h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 15px 0;
+    padding: 0;
+}
+
+#festivalLineupRoot .lineup-header p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+}
+
+#festivalLineupRoot .theme-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 8px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#festivalLineupRoot .search-container {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    position: relative;
+}
+
+#festivalLineupRoot .search-input {
+    width: 100%;
+    padding: 16px 50px 16px 20px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-xl);
+    font-size: 1rem;
+    background: var(--bg-primary);
+    color: var(--text-dark);
+    font-family: inherit;
+}
+
+#festivalLineupRoot .search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+#festivalLineupRoot .search-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+#festivalLineupRoot .filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    padding: 30px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 50px;
+}
+
+#festivalLineupRoot .filter-btn {
+    padding: 12px 28px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-xl);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-family: inherit;
+}
+
+#festivalLineupRoot .filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+#festivalLineupRoot .filter-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+#festivalLineupRoot .artists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+#festivalLineupRoot .artist-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+}
+
+#festivalLineupRoot .artist-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary);
+}
+
+#festivalLineupRoot .artist-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 70%;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+}
+
+#festivalLineupRoot .artist-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+}
+
+#festivalLineupRoot .artist-card:hover .artist-image {
+    transform: scale(1.1);
+}
+
+#festivalLineupRoot .artist-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    opacity: 0.3;
+}
+
+#festivalLineupRoot .genre-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--accent);
+    color: var(--text-dark);
+    padding: 6px 16px;
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#festivalLineupRoot .featured-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--danger);
+    color: white;
+    padding: 6px 16px;
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#festivalLineupRoot .artist-info {
+    padding: 25px;
+}
+
+#festivalLineupRoot .artist-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    padding: 0;
+    color: var(--text-dark);
+}
+
+#festivalLineupRoot .artist-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+#festivalLineupRoot .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+#festivalLineupRoot .artist-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-medium);
+    margin: 0 0 15px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+#festivalLineupRoot .artist-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#festivalLineupRoot .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+#festivalLineupRoot .empty-state-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+#festivalLineupRoot .empty-state h3 {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+#festivalLineupRoot .loading {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+#festivalLineupRoot .loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: festivalSpin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes festivalSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Admin Panel */
+#festivalLineupRoot .admin-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    z-index: 99997;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#festivalLineupRoot .admin-toggle-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+}
+
+#festivalLineupRoot .admin-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 99998;
+    display: none;
+}
+
+#festivalLineupRoot .admin-overlay.active {
+    display: block;
+}
+
+#festivalLineupRoot .admin-panel {
+    position: fixed;
+    right: -600px;
+    top: 0;
+    bottom: 0;
+    width: 600px;
+    max-width: 95vw;
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-xl);
+    z-index: 99999;
+    overflow-y: auto;
+    transition: right 0.4s;
+}
+
+#festivalLineupRoot .admin-panel.active {
+    right: 0;
+}
+
+#festivalLineupRoot .admin-header {
+    position: sticky;
+    top: 0;
+    background: var(--primary);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+#festivalLineupRoot .admin-header h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+}
+
+#festivalLineupRoot .admin-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#festivalLineupRoot .admin-content {
+    padding: 30px;
+}
+
+#festivalLineupRoot .admin-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border);
+}
+
+#festivalLineupRoot .admin-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    font-family: inherit;
+}
+
+#festivalLineupRoot .admin-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+#festivalLineupRoot .admin-tab-content {
+    display: none;
+}
+
+#festivalLineupRoot .admin-tab-content.active {
+    display: block;
+}
+
+#festivalLineupRoot .form-group {
+    margin-bottom: 20px;
+}
+
+#festivalLineupRoot .form-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-medium);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+#festivalLineupRoot .form-input,
+#festivalLineupRoot .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    background: var(--bg-primary);
+    color: var(--text-dark);
+    font-family: inherit;
+}
+
+#festivalLineupRoot .form-input:focus,
+#festivalLineupRoot .form-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+#festivalLineupRoot .form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+#festivalLineupRoot .form-hint {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 5px;
+}
+
+#festivalLineupRoot .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+#festivalLineupRoot .btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+#festivalLineupRoot .btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+#festivalLineupRoot .btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-dark);
+}
+
+#festivalLineupRoot .btn-success {
+    background: var(--success);
+    color: white;
+}
+
+#festivalLineupRoot .btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+#festivalLineupRoot .btn-sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+#festivalLineupRoot .btn-block {
+    width: 100%;
+}
+
+#festivalLineupRoot .btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#festivalLineupRoot .artist-list-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#festivalLineupRoot .artist-item-admin {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#festivalLineupRoot .artist-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+#festivalLineupRoot .artist-thumb-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+#festivalLineupRoot .artist-details-admin {
+    flex: 1;
+}
+
+#festivalLineupRoot .artist-details-admin h4 {
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+#festivalLineupRoot .artist-details-admin p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+}
+
+#festivalLineupRoot .artist-actions {
+    display: flex;
+    gap: 10px;
+}
+
+#festivalLineupRoot .alert {
+    padding: 15px 20px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+#festivalLineupRoot .alert-info {
+    background: #E3F2FD;
+    color: #1565C0;
+}
+
+@media (max-width: 768px) {
+    #festivalLineupRoot .lineup-container {
+        padding: 20px 15px;
+    }
+    
+    #festivalLineupRoot .theme-toggle {
+        position: static;
+        margin: 20px auto 0;
+    }
+    
+    #festivalLineupRoot .artists-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #festivalLineupRoot .admin-panel {
+        width: 100%;
+    }
+}
+</style>
+
+<div class="lineup-container">
+    <header class="lineup-header">
+        <button class="theme-toggle" id="festivalThemeToggle">
+            <span id="festivalThemeIcon">🌙</span>
+            <span id="festivalThemeText">Dark Mode</span>
+        </button>
+        <h1>Festival Lineup 2026</h1>
+        <p>Experience world-class performances across multiple stages</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" class="search-input" id="festivalSearchInput" placeholder="Search artists, genres, or stages...">
+        <span class="search-icon">🔍</span>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-controls" id="festivalFilterControls">
+            <button class="filter-btn active" data-filter="all" data-type="all">All Artists</button>
+        </div>
+    </div>
+
+    <div class="loading" id="festivalLoadingState">
+        <div class="loading-spinner"></div>
+        <p>Loading lineup...</p>
+    </div>
+
+    <div class="artists-grid" id="festivalArtistsGrid"></div>
+
+    <div class="empty-state" id="festivalEmptyState" style="display: none;">
+        <div class="empty-state-icon">🎵</div>
+        <h3>No artists found</h3>
+        <p>Try adjusting your search or filters</p>
+    </div>
+</div>
+
+<button class="admin-toggle-btn" id="festivalAdminToggleBtn" title="Open Admin Panel (Ctrl+Shift+A)">
+    🔧
+</button>
+
+<div class="admin-overlay" id="festivalAdminOverlay"></div>
+
+<div class="admin-panel" id="festivalAdminPanel">
+    <div class="admin-header">
+        <h2>⚙️ Lineup Manager</h2>
+        <button class="admin-close" id="festivalAdminClose">×</button>
+    </div>
+    
+    <div class="admin-content">
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="artists">Artists</button>
+            <button class="admin-tab" data-tab="add">Add New</button>
+            <button class="admin-tab" data-tab="settings">Settings</button>
+        </div>
+
+        <div class="admin-tab-content active" id="festivalTabArtists">
+            <div class="alert alert-info">
+                💡 Click edit button to modify. All changes save automatically.
+            </div>
+            <div class="artist-list-admin" id="festivalArtistListAdmin"></div>
+        </div>
+
+        <div class="admin-tab-content" id="festivalTabAdd">
+            <h3 style="margin-bottom: 20px;">Add New Artist</h3>
+            <form id="festivalAddArtistForm">
+                <input type="hidden" id="festivalEditArtistId">
+                
+                <div class="form-group">
+                    <label class="form-label">Artist Name *</label>
+                    <input type="text" class="form-input" id="festivalArtistName" required placeholder="e.g., The Electric Dreams">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Stage *</label>
+                    <input type="text" class="form-input" id="festivalArtistStage" required placeholder="e.g., Main Stage" list="festivalStageList">
+                    <datalist id="festivalStageList"></datalist>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date *</label>
+                    <input type="date" class="form-input" id="festivalArtistDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Time *</label>
+                    <input type="time" class="form-input" id="festivalArtistTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Genre *</label>
+                    <input type="text" class="form-input" id="festivalArtistGenre" required placeholder="e.g., Electronic" list="festivalGenreList">
+                    <datalist id="festivalGenreList"></datalist>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Image URL</label>
+                    <input type="url" class="form-input" id="festivalArtistImage" placeholder="https://example.com/image.jpg">
+                    <p class="form-hint">Paste direct image link (JPG, PNG, WebP)</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" id="festivalArtistDescription" placeholder="Tell us about this artist..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Website</label>
+                    <input type="url" class="form-input" id="festivalArtistWebsite" placeholder="https://artist-website.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="festivalArtistFeatured" style="width: auto;">
+                        Featured Artist (shows ⭐ badge)
+                    </label>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary btn-block" id="festivalSaveArtistBtn">
+                        💾 Save Artist
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-block" id="festivalCancelEditBtn" style="display: none;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="admin-tab-content" id="festivalTabSettings">
+            <h3 style="margin-bottom: 20px;">Data Management</h3>
+            
+            <div class="form-group">
+                <button class="btn btn-success btn-block" id="festivalExportDataBtn">
+                    📥 Export Data (JSON)
+                </button>
+                <p class="form-hint">Download backup of all artists</p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Import Data (JSON)</label>
+                <input type="file" class="form-input" id="festivalImportDataInput" accept=".json">
+                <p class="form-hint">Upload previously exported file</p>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-danger btn-block" id="festivalClearAllBtn">
+                    🗑️ Clear All Data
+                </button>
+                <p class="form-hint">⚠️ Permanently deletes all artists!</p>
+            </div>
+
+            <hr style="margin: 30px 0; border: none; border-top: 2px solid var(--border);">
+
+            <h3 style="margin-bottom: 20px;">Statistics</h3>
+            <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md);">
+                <p style="margin: 0 0 10px 0;"><strong>Total Artists:</strong> <span id="festivalTotalArtists">0</span></p>
+                <p style="margin: 0 0 10px 0;"><strong>Total Stages:</strong> <span id="festivalTotalStages">0</span></p>
+                <p style="margin: 0;"><strong>Total Genres:</strong> <span id="festivalTotalGenres">0</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+    
+    class FestivalLineupCMS {
+        constructor() {
+            this.artists = [];
+            this.filteredArtists = [];
+            this.currentFilter = 'all';
+            this.filterType = 'all';
+            this.searchQuery = '';
+            this.editingId = null;
+            this.init();
+        }
+
+        init() {
+            this.loadFromStorage();
+            this.setupEventListeners();
+            this.generateFilters();
+            this.displayArtists();
+            this.updateStats();
+            this.hideLoading();
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                    e.preventDefault();
+                    this.toggleAdmin();
+                }
+            });
+        }
+
+        loadFromStorage() {
+            const stored = localStorage.getItem('festival_lineup_artists');
+            if (stored) {
+                try {
+                    this.artists = JSON.parse(stored);
+                } catch (e) {
+                    this.loadDefaultData();
+                }
+            } else {
+                this.loadDefaultData();
+            }
+            this.filteredArtists = [...this.artists];
+        }
+
+        saveToStorage() {
+            localStorage.setItem('festival_lineup_artists', JSON.stringify(this.artists));
+        }
+
+        loadDefaultData() {
+            this.artists = [
+                {
+                    id: Date.now().toString(),
+                    name: 'The Electric Dreams',
+                    stage: 'Main Stage',
+                    date: '2026-07-15',
+                    time: '20:00',
+                    genre: 'Electronic',
+                    image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=600&fit=crop',
+                    description: 'Award-winning electronic duo bringing cosmic soundscapes to the main stage.',
+                    website: 'https://example.com',
+                    featured: true
+                },
+                {
+                    id: (Date.now() + 1).toString(),
+                    name: 'Sarah & The Sunsets',
+                    stage: 'Acoustic Stage',
+                    date: '2026-07-15',
+                    time: '18:00',
+                    genre: 'Folk',
+                    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop',
+                    description: 'Heartfelt indie folk with powerful vocals and beautiful harmonies.',
+                    website: '',
+                    featured: false
+                },
+                {
+                    id: (Date.now() + 2).toString(),
+                    name: 'DJ Midnight',
+                    stage: 'Dance Tent',
+                    date: '2026-07-16',
+                    time: '23:00',
+                    genre: 'House',
+                    image: 'https://images.unsplash.com/photo-1571266028243-d220c2a7323d?w=800&h=600&fit=crop',
+                    description: 'Underground house music legend bringing deep grooves all night long.',
+                    website: '',
+                    featured: false
+                }
+            ];
+            this.saveToStorage();
+        }
+
+        setupEventListeners() {
+            document.getElementById('festivalAdminToggleBtn').addEventListener('click', () => this.toggleAdmin());
+            document.getElementById('festivalAdminClose').addEventListener('click', () => this.toggleAdmin());
+            document.getElementById('festivalAdminOverlay').addEventListener('click', () => this.toggleAdmin());
+
+            document.querySelectorAll('#festivalLineupRoot .admin-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => this.switchTab(e.target.dataset.tab));
+            });
+
+            document.getElementById('festivalAddArtistForm').addEventListener('submit', (e) => this.saveArtist(e));
+            document.getElementById('festivalCancelEditBtn').addEventListener('click', () => this.cancelEdit());
+            document.getElementById('festivalExportDataBtn').addEventListener('click', () => this.exportData());
+            document.getElementById('festivalImportDataInput').addEventListener('change', (e) => this.importData(e));
+            document.getElementById('festivalClearAllBtn').addEventListener('click', () => this.clearAllData());
+            
+            document.getElementById('festivalSearchInput').addEventListener('input', (e) => {
+                this.searchQuery = e.target.value.toLowerCase();
+                this.applyFilters();
+            });
+
+            document.getElementById('festivalThemeToggle').addEventListener('click', () => this.toggleTheme());
+        }
+
+        toggleAdmin() {
+            document.getElementById('festivalAdminPanel').classList.toggle('active');
+            document.getElementById('festivalAdminOverlay').classList.toggle('active');
+            if (document.getElementById('festivalAdminPanel').classList.contains('active')) {
+                this.refreshAdminList();
+                this.updateDataLists();
+            }
+        }
+
+        switchTab(tabName) {
+            document.querySelectorAll('#festivalLineupRoot .admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`#festivalLineupRoot [data-tab="${tabName}"]`).classList.add('active');
+            document.querySelectorAll('#festivalLineupRoot .admin-tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`festivalTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
+            
+            if (tabName === 'artists') this.refreshAdminList();
+            if (tabName === 'settings') this.updateStats();
+        }
+
+        refreshAdminList() {
+            const container = document.getElementById('festivalArtistListAdmin');
+            container.innerHTML = '';
+
+            if (this.artists.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No artists yet. Click "Add New" to get started!</p></div>';
+                return;
+            }
+
+            const sorted = [...this.artists].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            sorted.forEach(artist => {
+                const item = document.createElement('div');
+                item.className = 'artist-item-admin';
+                item.innerHTML = `
+                    ${artist.image 
+                        ? `<img src="${artist.image}" class="artist-thumb" alt="${artist.name}">`
+                        : `<div class="artist-thumb-placeholder">🎵</div>`
+                    }
+                    <div class="artist-details-admin">
+                        <h4>${artist.name} ${artist.featured ? '⭐' : ''}</h4>
+                        <p>${artist.stage} • ${this.formatDate(artist.date)} at ${artist.time}</p>
+                    </div>
+                    <div class="artist-actions">
+                        <button class="btn btn-sm btn-secondary" data-artist-id="${artist.id}">
+                            ✏️
+                        </button>
+                        <button class="btn btn-sm btn-danger" data-delete-id="${artist.id}">
+                            🗑️
+                        </button>
+                    </div>
+                `;
+                
+                item.querySelector('[data-artist-id]').addEventListener('click', () => this.editArtist(artist.id));
+                item.querySelector('[data-delete-id]').addEventListener('click', () => this.deleteArtist(artist.id));
+   (file truncated for brevity)

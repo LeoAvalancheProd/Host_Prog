@@ -1,916 +1,1665 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Festival Lineup 2026</title>
-  <meta name="description" content="Interactive festival lineup with admin CMS - works as a static site or inside WordPress.">
-  <style>
-    /* Minimal page reset */
-    html,body{height:100%;margin:0;padding:0;background:#fff;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProgFest — Festival Lineup 2026</title>
+    
+    <!-- Meta Tags for SEO & Social Sharing -->
+    <meta name="description" content="Festival Lineup 2026 — view artists, filters and set times. Book your tickets now!">
+    <meta property="og:title" content="ProgFest — Festival Lineup 2026">
+    <meta property="og:description" content="Festival Lineup 2026 — view artists, filters and set times.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/FF6B35/FFFFFF?text=ProgFest+2026">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🎵</text></svg>" type="image/svg+xml">
+    
+    <style>
+        /* ============================================================================
+           PROGFEST PROFESSIONAL LINEUP - IFRAME OPTIMIZED
+           God-tier code with advanced features & pixel-perfect design
+           ============================================================================ */
+        
+        :root {
+            /* Brand Colors */
+            --primary: #FF6B35;
+            --primary-dark: #E55A2B;
+            --primary-light: #FF8C61;
+            --secondary: #004E89;
+            --secondary-dark: #003A6B;
+            --accent: #F7B801;
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            
+            /* Neutrals */
+            --text-dark: #1F2937;
+            --text-medium: #4B5563;
+            --text-light: #6B7280;
+            --text-lighter: #9CA3AF;
+            
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --bg-tertiary: #F3F4F6;
+            --bg-overlay: rgba(0, 0, 0, 0.8);
+            
+            --border: #E5E7EB;
+            --border-light: #F3F4F6;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Radius */
+            --radius-sm: 0.375rem;
+            --radius: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Layout */
+            --header-height: 80px;
+            --max-width: 1400px;
+        }
+        
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --text-dark: #F9FAFB;
+            --text-medium: #D1D5DB;
+            --text-light: #9CA3AF;
+            --text-lighter: #6B7280;
+            
+            --bg-primary: #1F2937;
+            --bg-secondary: #111827;
+            --bg-tertiary: #374151;
+            --bg-overlay: rgba(0, 0, 0, 0.9);
+            
+            --border: #374151;
+            --border-light: #4B5563;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background var(--transition), color var(--transition);
+        }
+        
+        /* Iframe Optimization */
+        body.iframe-mode {
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+        }
+        
+        body.iframe-mode .header-sticky {
+            position: static;
+        }
+        
+        /* Container */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+        
+        /* Header */
+        .header-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--header-height);
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-emoji {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-dark);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+        
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-medium);
+            padding: 0.5rem;
+        }
+        
+        .btn-ghost:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-dark);
+        }
+        
+        .btn-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border-radius: var(--radius-full);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 2.5rem 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 3rem;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Search & Filters */
+        .controls-section {
+            margin-bottom: 3rem;
+        }
+        
+        .search-wrapper {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-dark);
+            transition: all var(--transition);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-lighter);
+            font-size: 1.25rem;
+            pointer-events: none;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-tertiary);
+            padding: 0.25rem;
+            border-radius: var(--radius-full);
+        }
+        
+        .view-toggle-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        
+        .view-toggle-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-dark);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Artists Grid */
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .artists-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+        
+        /* Artist Card */
+        .artist-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-slow);
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .artist-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+        
+        .artist-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+        
+        .artist-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .artist-card:hover .artist-image {
+            transform: scale(1.08);
+        }
+        
+        .artist-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            opacity: 0.25;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+        
+        .badges {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        
+        .badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .badge-featured {
+            background: rgba(239, 68, 68, 0.95);
+            color: white;
+        }
+        
+        .badge-genre {
+            background: rgba(247, 184, 1, 0.95);
+            color: var(--text-dark);
+        }
+        
+        .badge-price {
+            background: rgba(16, 185, 129, 0.95);
+            color: white;
+        }
+        
+        .artist-info {
+            padding: 1.5rem;
+        }
+        
+        .artist-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+        
+        .artist-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .meta-icon {
+            font-size: 1rem;
+        }
+        
+        .artist-description {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        
+        /* List View Styles */
+        .artist-card.list-view-card {
+            display: flex;
+            flex-direction: row;
+            padding: 1.5rem;
+        }
+        
+        .artist-card.list-view-card .artist-image-wrapper {
+            width: 200px;
+            padding-top: 0;
+            height: 200px;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+        
+        .artist-card.list-view-card .artist-info {
+            flex: 1;
+            padding: 0 0 0 1.5rem;
+        }
+        
+        .artist-card.list-view-card .artist-description {
+            -webkit-line-clamp: 2;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn var(--transition-slow);
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-2xl);
+            animation: slideUp var(--transition-slow);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: var(--radius-full);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+        
+        .modal-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-header-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+        
+        .modal-artist-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .modal-artist-genre {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: var(--text-dark);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .modal-content {
+            padding: 2rem;
+        }
+        
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+        
+        .modal-section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .modal-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .modal-meta-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        
+        .modal-meta-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .modal-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+        }
+        
+        .modal-videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .video-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all var(--transition);
+        }
+        
+        .video-link:hover {
+            border-color: var(--primary);
+            background: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .video-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .video-info {
+            flex: 1;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .video-platform {
+            font-size: 0.8125rem;
+            color: var(--text-light);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+        
+        .price-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        
+        .price-amount {
+            font-size: 1.5rem;
+            color: var(--success);
+        }
+        
+        /* Share Buttons */
+        .share-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .share-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: var(--radius-full);
+            border: 2px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        
+        .share-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+        
+        .empty-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+        }
+        
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-text {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+        
+        .spinner {
+            width: 3rem;
+            height: 3rem;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(2rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                height: 4rem;
+            }
+            
+            .logo {
+                font-size: 1.25rem;
+            }
+            
+            .logo-emoji {
+                font-size: 1.5rem;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-stats {
+                gap: 1.5rem;
+            }
+            
+            .artists-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .artist-card.list-view-card {
+                flex-direction: column;
+            }
+            
+            .artist-card.list-view-card .artist-image-wrapper {
+                width: 100%;
+                height: 250px;
+            }
+            
+            .artist-card.list-view-card .artist-info {
+                padding: 1.5rem;
+            }
+            
+            .modal-header {
+                height: 300px;
+            }
+            
+            .modal-artist-name {
+                font-size: 2rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .modal-meta-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .btn-large {
+                width: 100%;
+            }
+            
+            .filters {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                font-size: 0.8125rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
 </head>
 <body>
-
-<!--
-=============================================================================
-PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
-=============================================================================
---> 
-
-<div id="festivalLineupRoot" data-theme="light">
-<style>
-/* Scoped Festival Lineup Styles - Won't conflict with WordPress theme */
-#festivalLineupRoot {
-    --primary: #FF6B35;
-    --primary-dark: #E55A2B;
-    --secondary: #004E89;
-    --accent: #F7B801;
-    --success: #4CAF50;
-    --danger: #F44336;
-    
-    --text-dark: #1A1A1A;
-    --text-medium: #4A4A4A;
-    --text-light: #777777;
-    
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #F9FAFB;
-    --bg-tertiary: #F3F4F6;
-    
-    --border: #E5E7EB;
-    
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-    
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-    
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg-secondary);
-    color: var(--text-dark);
-    line-height: 1.6;
-    position: relative;
-}
-
-#festivalLineupRoot[data-theme="dark"] {
-    --text-dark: #F9FAFB;
-    --text-medium: #D1D5DB;
-    --text-light: #9CA3AF;
-    --bg-primary: #1F2937;
-    --bg-secondary: #111827;
-    --bg-tertiary: #374151;
-    --border: #374151;
-}
-
-#festivalLineupRoot *,
-#festivalLineupRoot *::before,
-#festivalLineupRoot *::after {
-    box-sizing: border-box;
-}
-
-#festivalLineupRoot .lineup-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-#festivalLineupRoot .lineup-header {
-    text-align: center;
-    margin-bottom: 60px;
-    padding-bottom: 40px;
-    border-bottom: 3px solid var(--primary);
-    position: relative;
-}
-
-#festivalLineupRoot .lineup-header h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--secondary), var(--primary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin: 0 0 15px 0;
-    padding: 0;
-}
-
-#festivalLineupRoot .lineup-header p {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin: 0;
-    padding: 0;
-}
-
-#festivalLineupRoot .theme-toggle {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: var(--bg-tertiary);
-    border: 2px solid var(--border);
-    border-radius: var(--radius-xl);
-    padding: 8px 20px;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-dark);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-#festivalLineupRoot .search-container {
-    max-width: 600px;
-    margin: 0 auto 40px;
-    position: relative;
-}
-
-#festivalLineupRoot .search-input {
-    width: 100%;
-    padding: 16px 50px 16px 20px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius-xl);
-    font-size: 1rem;
-    background: var(--bg-primary);
-    color: var(--text-dark);
-    font-family: inherit;
-}
-
-#festivalLineupRoot .search-input:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-#festivalLineupRoot .search-icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
-    pointer-events: none;
-}
-
-#festivalLineupRoot .filter-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    padding: 30px;
-    background: var(--bg-primary);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    margin-bottom: 50px;
-}
-
-#festivalLineupRoot .filter-btn {
-    padding: 12px 28px;
-    background: var(--bg-secondary);
-    border: 2px solid var(--border);
-    border-radius: var(--radius-xl);
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    cursor: pointer;
-    transition: all 0.3s;
-    text-transform: uppercase;
-    font-family: inherit;
-}
-
-#festivalLineupRoot .filter-btn:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: translateY(-2px);
-}
-
-#festivalLineupRoot .filter-btn.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-#festivalLineupRoot .artists-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-#festivalLineupRoot .artist-card {
-    background: var(--bg-primary);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s;
-    border: 1px solid var(--border);
-}
-
-#festivalLineupRoot .artist-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary);
-}
-
-#festivalLineupRoot .artist-image-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 70%;
-    overflow: hidden;
-    background: linear-gradient(135deg, var(--secondary), var(--primary));
-}
-
-#festivalLineupRoot .artist-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s;
-}
-
-#festivalLineupRoot .artist-card:hover .artist-image {
-    transform: scale(1.1);
-}
-
-#festivalLineupRoot .artist-placeholder {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    opacity: 0.3;
-}
-
-#festivalLineupRoot .genre-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: var(--accent);
-    color: var(--text-dark);
-    padding: 6px 16px;
-    border-radius: var(--radius-xl);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-#festivalLineupRoot .featured-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: var(--danger);
-    color: white;
-    padding: 6px 16px;
-    border-radius: var(--radius-xl);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-#festivalLineupRoot .artist-info {
-    padding: 25px;
-}
-
-#festivalLineupRoot .artist-name {
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin: 0 0 12px 0;
-    padding: 0;
-    color: var(--text-dark);
-}
-
-#festivalLineupRoot .artist-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border);
-}
-
-#festivalLineupRoot .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-#festivalLineupRoot .artist-description {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--text-medium);
-    margin: 0 0 15px 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-#festivalLineupRoot .artist-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-#festivalLineupRoot .empty-state {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-#festivalLineupRoot .empty-state-icon {
-    font-size: 5rem;
-    margin-bottom: 20px;
-    opacity: 0.3;
-}
-
-#festivalLineupRoot .empty-state h3 {
-    margin: 0 0 10px 0;
-    padding: 0;
-}
-
-#festivalLineupRoot .loading {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-#festivalLineupRoot .loading-spinner {
-    width: 60px;
-    height: 60px;
-    border: 5px solid var(--border);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: festivalSpin 1s linear infinite;
-    margin: 0 auto 20px;
-}
-
-@keyframes festivalSpin {
-    to { transform: rotate(360deg); }
-}
-
-/* Admin Panel */
-#festivalLineupRoot .admin-toggle-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--primary);
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: var(--shadow-lg);
-    z-index: 99997;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#festivalLineupRoot .admin-toggle-btn:hover {
-    transform: scale(1.1) rotate(90deg);
-}
-
-#festivalLineupRoot .admin-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    z-index: 99998;
-    display: none;
-}
-
-#festivalLineupRoot .admin-overlay.active {
-    display: block;
-}
-
-#festivalLineupRoot .admin-panel {
-    position: fixed;
-    right: -600px;
-    top: 0;
-    bottom: 0;
-    width: 600px;
-    max-width: 95vw;
-    background: var(--bg-primary);
-    box-shadow: var(--shadow-xl);
-    z-index: 99999;
-    overflow-y: auto;
-    transition: right 0.4s;
-}
-
-#festivalLineupRoot .admin-panel.active {
-    right: 0;
-}
-
-#festivalLineupRoot .admin-header {
-    position: sticky;
-    top: 0;
-    background: var(--primary);
-    color: white;
-    padding: 20px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-}
-
-#festivalLineupRoot .admin-header h2 {
-    margin: 0;
-    padding: 0;
-    font-size: 1.5rem;
-}
-
-#festivalLineupRoot .admin-close {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#festivalLineupRoot .admin-content {
-    padding: 30px;
-}
-
-#festivalLineupRoot .admin-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    border-bottom: 2px solid var(--border);
-}
-
-#festivalLineupRoot .admin-tab {
-    padding: 12px 24px;
-    background: none;
-    border: none;
-    color: var(--text-light);
-    font-weight: 600;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    margin-bottom: -2px;
-    font-family: inherit;
-}
-
-#festivalLineupRoot .admin-tab.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
-}
-
-#festivalLineupRoot .admin-tab-content {
-    display: none;
-}
-
-#festivalLineupRoot .admin-tab-content.active {
-    display: block;
-}
-
-#festivalLineupRoot .form-group {
-    margin-bottom: 20px;
-}
-
-#festivalLineupRoot .form-label {
-    display: block;
-    font-weight: 600;
-    color: var(--text-medium);
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-}
-
-#festivalLineupRoot .form-input,
-#festivalLineupRoot .form-textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 0.95rem;
-    background: var(--bg-primary);
-    color: var(--text-dark);
-    font-family: inherit;
-}
-
-#festivalLineupRoot .form-input:focus,
-#festivalLineupRoot .form-textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-#festivalLineupRoot .form-textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-#festivalLineupRoot .form-hint {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    margin-top: 5px;
-}
-
-#festivalLineupRoot .btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: center;
-    transition: all 0.3s;
-    font-family: inherit;
-}
-
-#festivalLineupRoot .btn-primary {
-    background: var(--primary);
-    color: white;
-}
-
-#festivalLineupRoot .btn-primary:hover {
-    background: var(--primary-dark);
-}
-
-#festivalLineupRoot .btn-secondary {
-    background: var(--bg-tertiary);
-    color: var(--text-dark);
-}
-
-#festivalLineupRoot .btn-success {
-    background: var(--success);
-    color: white;
-}
-
-#festivalLineupRoot .btn-danger {
-    background: var(--danger);
-    color: white;
-}
-
-#festivalLineupRoot .btn-sm {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-}
-
-#festivalLineupRoot .btn-block {
-    width: 100%;
-}
-
-#festivalLineupRoot .btn-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-#festivalLineupRoot .artist-list-admin {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-#festivalLineupRoot .artist-item-admin {
-    background: var(--bg-secondary);
-    border: 2px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-#festivalLineupRoot .artist-thumb {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-sm);
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-#festivalLineupRoot .artist-thumb-placeholder {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-sm);
-    background: linear-gradient(135deg, var(--secondary), var(--primary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    flex-shrink: 0;
-}
-
-#festivalLineupRoot .artist-details-admin {
-    flex: 1;
-}
-
-#festivalLineupRoot .artist-details-admin h4 {
-    font-size: 1.1rem;
-    margin: 0 0 5px 0;
-    padding: 0;
-}
-
-#festivalLineupRoot .artist-details-admin p {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    margin: 0;
-    padding: 0;
-}
-
-#festivalLineupRoot .artist-actions {
-    display: flex;
-    gap: 10px;
-}
-
-#festivalLineupRoot .alert {
-    padding: 15px 20px;
-    border-radius: var(--radius-sm);
-    margin-bottom: 20px;
-    font-weight: 500;
-}
-
-#festivalLineupRoot .alert-info {
-    background: #E3F2FD;
-    color: #1565C0;
-}
-
-@media (max-width: 768px) {
-    #festivalLineupRoot .lineup-container {
-        padding: 20px 15px;
-    }
-    
-    #festivalLineupRoot .theme-toggle {
-        position: static;
-        margin: 20px auto 0;
-    }
-    
-    #festivalLineupRoot .artists-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    #festivalLineupRoot .admin-panel {
-        width: 100%;
-    }
-}
-</style>
-
-<div class="lineup-container">
-    <header class="lineup-header">
-        <button class="theme-toggle" id="festivalThemeToggle">
-            <span id="festivalThemeIcon">🌙</span>
-            <span id="festivalThemeText">Dark Mode</span>
-        </button>
-        <h1>Festival Lineup 2026</h1>
-        <p>Experience world-class performances across multiple stages</p>
+    <!-- Header -->
+    <header class="header-sticky">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <span class="logo-emoji">🎵</span>
+                    <span>ProgFest</span>
+                </a>
+                
+                <div class="header-actions">
+                    <div class="view-toggle hidden" id="viewToggle">
+                        <button class="view-toggle-btn active" data-view="grid">Grid</button>
+                        <button class="view-toggle-btn" data-view="list">List</button>
+                    </div>
+                    
+                    <button class="btn btn-ghost btn-icon" id="themeToggle" title="Toggle theme">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    
+                    <a href="https://tickets.example.com" class="btn btn-primary hidden" id="headerTicketsBtn">
+                        🎫 Get Tickets
+                    </a>
+                </div>
+            </div>
+        </div>
     </header>
-
-    <div class="search-container">
-        <input type="text" class="search-input" id="festivalSearchInput" placeholder="Search artists, genres, or stages...">
-        <span class="search-icon">🔍</span>
-    </div>
-
-    <div class="filter-section">
-        <div class="filter-controls" id="festivalFilterControls">
-            <button class="filter-btn active" data-filter="all" data-type="all">All Artists</button>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="hero-title">Festival Lineup 2026</h1>
+                <p class="hero-subtitle">Experience world-class performances across multiple stages</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="totalArtists">0</div>
+                        <div class="stat-label">Artists</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="totalStages">0</div>
+                        <div class="stat-label">Stages</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="totalDays">0</div>
+                        <div class="stat-label">Days</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Controls -->
+            <section class="controls-section">
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput" 
+                        placeholder="Search artists, genres, or stages..."
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <div class="filters" id="filters">
+                    <button class="filter-btn active" data-filter="all" data-type="all">All Artists</button>
+                </div>
+            </section>
+            
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading lineup...</p>
+            </div>
+            
+            <!-- Artists Grid -->
+            <div class="artists-grid" id="artistsGrid"></div>
+            
+            <!-- Empty State -->
+            <div class="empty-state hidden" id="emptyState">
+                <div class="empty-icon">🎵</div>
+                <h3 class="empty-title">No artists found</h3>
+                <p class="empty-text">Try adjusting your search or filters</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Artist Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+            
+            <div class="modal-header">
+                <img src="" alt="" class="modal-image" id="modalImage">
+                <div class="modal-header-overlay">
+                    <h2 class="modal-artist-name" id="modalArtistName"></h2>
+                    <span class="modal-artist-genre" id="modalArtistGenre"></span>
+                </div>
+            </div>
+            
+            <div class="modal-content">
+                <div class="modal-meta-grid" id="modalMeta"></div>
+                
+                <div class="modal-section" id="modalDescriptionSection">
+                    <h3 class="modal-section-title">📝 About</h3>
+                    <p class="modal-description" id="modalDescription"></p>
+                </div>
+                
+                <div class="modal-section hidden" id="modalVideosSection">
+                    <h3 class="modal-section-title">🎬 Videos</h3>
+                    <div class="modal-videos" id="modalVideos"></div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-primary btn-large hidden" id="modalTicketsBtn">
+                        🎫 Get Tickets
+                    </button>
+                    
+                    <div class="price-tag hidden" id="modalPrice">
+                        <span>Starting at</span>
+                        <span class="price-amount" id="modalPriceAmount"></span>
+                    </div>
+                    
+                    <div style="flex: 1;"></div>
+                    
+                    <div class="share-buttons">
+                        <button class="share-btn" id="shareTwitter" title="Share on Twitter">𝕏</button>
+                        <button class="share-btn" id="shareFacebook" title="Share on Facebook">f</button>
+                        <button class="share-btn" id="shareLink" title="Copy link">🔗</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="loading" id="festivalLoadingState">
-        <div class="loading-spinner"></div>
-        <p>Loading lineup...</p>
-    </div>
-
-    <div class="artists-grid" id="festivalArtistsGrid"></div>
-
-    <div class="empty-state" id="festivalEmptyState" style="display: none;">
-        <div class="empty-state-icon">🎵</div>
-        <h3>No artists found</h3>
-        <p>Try adjusting your search or filters</p>
-    </div>
-</div>
-
-<!-- Admin is managed on a dedicated page: /admin.html -->
-<!-- Removed inline admin UI — use /admin.html to manage artists -->
-
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="ProgFest — Festival Lineup">
-<meta property="og:description" content="Festival Lineup 2026 — view artists, filters and set times.">
-<meta property="og:image" content="assets/logo.svg">
-
-<!-- Quick admin shortcut button (works in file:// and hosted) -->
-<button id="festivalAdminToggleBtn" class="admin-toggle-btn" title="Admin">🔧</button>
-
-<script>
-(function() {
-    'use strict';
-
-    // Base path helper to support file:// and hosted environments
-    const _festival_basePath = (function(){
-        const href = window.location.href.split('#')[0].split('?')[0];
-        return href.endsWith('/') ? href : href.substring(0, href.lastIndexOf('/')+1);
-    })();
-    function _festival_adminHref(returnUrl) { return `${_festival_basePath}admin.html${returnUrl ? '?return=' + returnUrl : ''}`; }
-    function _festival_isAdminAuth() { return sessionStorage.getItem('festival_admin_auth') === 'true' || localStorage.getItem('festival_admin_auth') === 'true'; }
     
-    class FestivalLineupCMS {
-        constructor() {
-            this.artists = [];
-            this.filteredArtists = [];
-            this.currentFilter = 'all';
-            this.filterType = 'all';
-            this.searchQuery = '';
-            this.editingId = null;
-            this.init();
-        }
-
-        init() {
-            this.loadFromStorage();
-            this.setupEventListeners();
-            this.generateFilters();
-            this.displayArtists();
-            this.updateStats();
-            this.hideLoading();
+    <script>
+        (function() {
+            'use strict';
             
-            document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-                    e.preventDefault();
-                    const returnUrl = encodeURIComponent(window.location.pathname + window.location.search + '#adminShortcut');
-                    window.location.href = _festival_adminHref(returnUrl);
-                }
-            });
-        }
-
-        loadFromStorage() {
-            const stored = localStorage.getItem('festival_lineup_artists');
-            if (stored) {
-                try {
-                    this.artists = JSON.parse(stored);
-                } catch (e) {
-                    this.loadDefaultData();
-                }
-            } else {
-                this.loadDefaultData();
-            }
-            this.filteredArtists = [...this.artists];
-        }
-
-        saveToStorage() {
-            localStorage.setItem('festival_lineup_artists', JSON.stringify(this.artists));
-        }
-
-        loadDefaultData() {
-            this.artists = [
-                {
-                    id: Date.now().toString(),
-                    name: 'The Electric Dreams',
-                    stage: 'Main Stage',
-                    date: '2026-07-15',
-                    time: '20:00',
-                    genre: 'Electronic',
-                    image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=600&fit=crop',
-                    description: 'Award-winning electronic duo bringing cosmic soundscapes to the main stage.',
-                    website: 'https://example.com',
-                    featured: true
-                },
-                {
-                    id: (Date.now() + 1).toString(),
-                    name: 'Sarah & The Sunsets',
-                    stage: 'Acoustic Stage',
-                    date: '2026-07-15',
-                    time: '18:00',
-                    genre: 'Folk',
-                    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop',
-                    description: 'Heartfelt indie folk with powerful vocals and beautiful harmonies.',
-                    website: '',
-                    featured: false
-                },
-                {
-                    id: (Date.now() + 2).toString(),
-                    name: 'DJ Midnight',
-                    stage: 'Dance Tent',
-                    date: '2026-07-16',
-                    time: '23:00',
-                    genre: 'House',
-                    image: 'https://images.unsplash.com/photo-1571266028243-d220c2a7323d?w=800&h=600&fit=crop',
-                    description: 'Underground house music legend bringing deep grooves all night long.',
-                    website: '',
-                    featured: false
-                }
-            ];
-            this.saveToStorage();
-        }
-
-        setupEventListeners() {
-            const adminToggle = document.getElementById('festivalAdminToggleBtn');
-            if (adminToggle) {
-                adminToggle.addEventListener('click', () => {
-                    const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-                    window.location.href = _festival_adminHref(returnUrl);
-                });
-            }
-
-            const adminClose = document.getElementById('festivalAdminClose');
-            if (adminClose) adminClose.addEventListener('click', () => this.toggleAdmin());
-
-            const adminOverlay = document.getElementById('festivalAdminOverlay');
-            if (adminOverlay) adminOverlay.addEventListener('click', () => this.toggleAdmin());
-
-            // Logout button (client-side session logout)
-            const logoutBtn = document.getElementById('festivalAdminLogout');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', () => {
-                    sessionStorage.removeItem('festival_admin_auth');
-                    localStorage.removeItem('festival_admin_auth');
-                    // panel removed on main site; just alert
-                    alert('🔒 Logged out');
-                });
-            }
-
-            document.querySelectorAll('#festivalLineupRoot .admin-tab').forEach(tab => {
-                tab.addEventListener('click', (e) => this.switchTab(e.target.dataset.tab));
-            });
-
-            document.getElementById('festivalAddArtistForm').addEventListener('submit', (e) => this.saveArtist(e));
-            document.getElementById('festivalCancelEditBtn').addEventListener('click', () => this.cancelEdit());
-            document.getElementById('festivalExportDataBtn').addEventListener('click', () => this.exportData());
-            document.getElementById('festivalImportDataInput').addEventListener('change', (e) => this.importData(e));
-            document.getElementById('festivalClearAllBtn').addEventListener('click', () => this.clearAllData());
+            // =========================================================================
+            // FESTIVAL LINEUP - PROFESSIONAL IMPLEMENTATION
+            // =========================================================================
             
-            document.getElementById('festivalSearchInput').addEventListener('input', (e) => {
-                this.searchQuery = e.target.value.toLowerCase();
-                this.applyFilters();
-            });
-
-            document.getElementById('festivalThemeToggle').addEventListener('click', () => this.toggleTheme());
-        }
-
-        toggleAdmin() {
-            // Admin UI has been moved to a dedicated page. Redirect to /admin.html
-            const panel = document.getElementById('festivalAdminPanel');
-            if (panel) {
-                // If admin panel exists (legacy), toggle it safely
-                const overlay = document.getElementById('festivalAdminOverlay');
-                panel.classList.toggle('active');
-                if (overlay) overlay.classList.toggle('active');
-                if (panel.classList.contains('active')) {
-                    this.refreshAdminList();
-                    this.updateDataLists();
-                }
-                return;
+            // Check if running in iframe
+            const isIframe = window.self !== window.top;
+            if (isIframe) {
+                document.body.classList.add('iframe-mode');
             }
-            const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-            window.location.href = _festival_adminHref(returnUrl);
-        }
-
-        switchTab(tabName) {
-            document.querySelectorAll('#festivalLineupRoot .admin-tab').forEach(t => t.classList.remove('active'));
-            document.querySelector(`#festivalLineupRoot [data-tab="${tabName}"]`).classList.add('active');
-            document.querySelectorAll('#festivalLineupRoot .admin-tab-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(`festivalTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
             
-            if (tabName === 'artists') this.refreshAdminList();
-            if (tabName === 'settings') this.updateStats();
-        }
-
-        refreshAdminList() {
-            const container = document.getElementById('festivalArtistListAdmin');
-            container.innerHTML = '';
-
-            if (this.artists.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>No artists yet. Click "Add New" to get started!</p></div>';
-                return;
-            }
-
-            const sorted = [...this.artists].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            sorted.forEach(artist => {
-                const item = document.createElement('div');
-                item.className = 'artist-item-admin';
-                item.innerHTML = `
-                    ${artist.image 
-                        ? `<img src="${artist.image}" class="artist-thumb" alt="${artist.name}">`
-                        : `<div class="artist-thumb-placeholder">🎵</div>`
-                    }
-                    <div class="artist-details-admin">
-                        <h4>${artist.name} ${artist.featured ? '⭐' : ''}</h4>
-                        <p>${artist.stage} • ${this.formatDate(artist.date)} at ${artist.time}</p>
-                    </div>
-                    <div class="artist-actions">
-                        <button class="btn btn-sm btn-secondary" data-artist-id="${artist.id}">
-                            ✏️
-                        </button>
-                        <button class="btn btn-sm btn-danger" data-delete-id="${artist.id}">
-                            🗑️
-                        </button>
-                    </div>
-                `;
+            class FestivalLineup {
+                constructor() {
+                    this.artists = [];
+                    this.filteredArtists = [];
+                    this.currentFilter = { type: 'all', value: 'all' };
+                    this.searchQuery = '';
+                    this.currentView = 'grid';
+                    this.currentArtist = null;
+                    
+                    this.init();
+                }
                 
-                item.querySelector('[data-artist-id]').addEventListener('click', () => this.editArtist(artist.id));
-                item.querySelector('[data-delete-id]').addEventListener('click', () => this.deleteArtist(artist.id));
-   (file truncated for brevity)
+                init() {
+                    this.loadArtists();
+                    this.setupEventListeners();
+                    this.loadTheme();
+                    this.render();
+                }
+                
+                loadArtists() {
+                    const stored = localStorage.getItem('festival_lineup_artists');
+                    if (stored) {
+                        try {
+                            this.artists = JSON.parse(stored);
+                        } catch (e) {
+                            console.error('Error loading artists:', e);
+                            this.loadDefaultArtists();
+                        }
+                    } else {
+                        this.loadDefaultArtists();
+                    }
+                    
+                    this.filteredArtists = [...this.artists];
+                }
+                
+                loadDefaultArtists() {
+                    this.artists = [
+                        {
+                            id: '1',
+                            name: 'The Electric Dreams',
+                            stage: 'Main Stage',
+                            date: '2026-07-15',
+                            time: '20:00',
+                            genre: 'Electronic',
+                            image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1200&h=900&fit=crop',
+                            description: 'Award-winning electronic duo bringing their cosmic soundscapes to the main stage with an unforgettable visual experience featuring cutting-edge production and mesmerizing light shows.',
+                            website: 'https://example.com',
+                            featured: true,
+                            ticketUrl: 'https://tickets.example.com/electric-dreams',
+                            price: '€45',
+                            videos: [
+                                { title: 'Live at Coachella 2025', url: 'https://youtube.com/watch?v=example', platform: 'YouTube' },
+                                { title: 'Studio Session', url: 'https://youtube.com/watch?v=example2', platform: 'YouTube' }
+                            ]
+                        },
+                        {
+                            id: '2',
+                            name: 'Sarah & The Sunsets',
+                            stage: 'Acoustic Stage',
+                            date: '2026-07-15',
+                            time: '18:00',
+                            genre: 'Folk',
+                            image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=900&fit=crop',
+                            description: 'Heartfelt indie folk with powerful vocals and beautiful harmonies. Their latest album has been praised by critics worldwide.',
+                            website: 'https://example.com',
+                            featured: false,
+                            ticketUrl: 'https://tickets.example.com/sarah-sunsets',
+                            price: '€35',
+                            videos: [
+                                { title: 'NPR Tiny Desk Concert', url: 'https://youtube.com/watch?v=example3', platform: 'YouTube' }
+                            ]
+                        },
+                        {
+                            id: '3',
+                            name: 'DJ Midnight',
+                            stage: 'Dance Tent',
+                            date: '2026-07-16',
+                            time: '23:00',
+                            genre: 'House',
+                            image: 'https://images.unsplash.com/photo-1571266028243-d220c2a7323d?w=1200&h=900&fit=crop',
+                            description: 'Underground house music legend bringing deep grooves all night long. Prepare for an unforgettable journey through sound.',
+                            website: '',
+                            featured: false,
+                            ticketUrl: 'https://tickets.example.com/dj-midnight',
+                            price: '€50',
+                            videos: []
+                        }
+                    ];
+                    
+                    this.saveArtists();
+                }
+                
+                saveArtists() {
+                    localStorage.setItem('festival_lineup_artists', JSON.stringify(this.artists));
+                }
+                
+                setupEventListeners() {
+                    // Search
+                    document.getElementById('searchInput').addEventListener('input', (e) => {
+                        this.searchQuery = e.target.value.toLowerCase().trim();
+                        this.applyFilters();
+                    });
+                    
+                    // Theme toggle
+                    document.getElementById('themeToggle').addEventListener('click', () => {
+                        this.toggleTheme();
+                    });
+                    
+                    // View toggle
+                    document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            this.setView(e.target.dataset.view);
+                        });
+                    });
+                    
+                    // Modal
+                    document.getElementById('modalClose').addEventListener('click', () => {
+                        this.closeModal();
+                    });
+                    
+                    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                        if (e.target === e.currentTarget) {
+                            this.closeModal();
+                        }
+                    });
+                    
+                    // Share buttons
+                    document.getElementById('shareTwitter').addEventListener('click', () => {
+                        this.shareOnTwitter();
+                    });
+                    
+                    document.getElementById('shareFacebook').addEventListener('click', () => {
+                        this.shareOnFacebook();
+                    });
+                    
+                    document.getElementById('shareLink').addEventListener('click', () => {
+                        this.copyLink();
+                    });
+                    
+                    // Keyboard shortcuts
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            this.closeModal();
+                        }
+                    });
+                    
+                    // Listen for storage changes (multi-tab sync)
+                    window.addEventListener('storage', (e) => {
+                        if (e.key === 'festival_lineup_artists') {
+                            this.loadArtists();
+                            this.applyFilters();
+                        }
+                    });
+                }
+                
+                render() {
+                    this.renderStats();
+                    this.renderFilters();
+                    this.renderArtists();
+                    document.getElementById('loading').classList.add('hidden');
+                }
+                
+                renderStats() {
+                    const dates = [...new Set(this.artists.map(a => a.date))];
+                    const stages = [...new Set(this.artists.map(a => a.stage))];
+                    
+                    document.getElementById('totalArtists').textContent = this.artists.length;
+                    document.getElementById('totalStages').textContent = stages.length;
+                    document.getElementById('totalDays').textContent = dates.length;
+                }
+                
+                renderFilters() {
+                    const container = document.getElementById('filters');
+                    container.innerHTML = '<button class="filter-btn active" data-filter="all" data-type="all">All Artists</button>';
+                    
+                    const dates = [...new Set(this.artists.map(a => a.date))].sort();
+                    const stages = [...new Set(this.artists.map(a => a.stage))];
+                    const genres = [...new Set(this.artists.map(a => a.genre))];
+                    
+                    // Date filters
+                    if (dates.length > 1) {
+                        dates.forEach(date => {
+                            const btn = this.createFilterButton(date, 'date', this.formatDate(date));
+                            container.appendChild(btn);
+                        });
+                    }
+                    
+                    // Stage filters
+                    if (stages.length > 1) {
+                        stages.forEach(stage => {
+                            const btn = this.createFilterButton(stage, 'stage', stage);
+                            container.appendChild(btn);
+                        });
+                    }
+                    
+                    // Genre filters
+                    if (genres.length > 1) {
+                        genres.forEach(genre => {
+                            const btn = this.createFilterButton(genre, 'genre', genre);
+                            container.appendChild(btn);
+                        });
+                    }
+                }
+                
+                createFilterButton(value, type, label) {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn';
+                    btn.dataset.filter = value;
+                    btn.dataset.type = type;
+                    btn.textContent = label;
+                    btn.addEventListener('click', () => {
+                        this.setFilter(value, type);
+                    });
+                    return btn;
+                }
+                
+                setFilter(value, type) {
+                    this.currentFilter = { value, type };
+                    
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    document.querySelector(`[data-filter="${value}"][data-type="${type}"]`)?.classList.add('active');
+                    
+                    this.applyFilters();
+                }
+                
+                applyFilters() {
+                    let filtered = [...this.artists];
+                    
+                    // Apply category filter
+                    if (this.currentFilter.value !== 'all') {
+                        filtered = filtered.filter(artist => {
+                            if (this.currentFilter.type === 'date') return artist.date === this.currentFilter.value;
+                            if (this.currentFilter.type === 'stage') return artist.stage === this.currentFilter.value;
+                            if (this.currentFilter.type === 'genre') return artist.genre === this.currentFilter.value;
+                            return true;
+                        });
+                    }
+                    
+                    // Apply search filter
+                    if (this.searchQuery) {
+                        filtered = filtered.filter(artist =>
+                            artist.name.toLowerCase().includes(this.searchQuery) ||
+                            artist.genre.toLowerCase().includes(this.searchQuery) ||
+                            artist.stage.toLowerCase().includes(this.searchQuery) ||
+                            (artist.description && artist.description.toLowerCase().includes(this.searchQuery))
+                        );
+                    }
+                    
+                    this.filteredArtists = filtered;
+                    this.renderArtists();
+                }
+                
+                renderArtists() {
+                    const container = document.getElementById('artistsGrid');
+                    const emptyState = document.getElementById('emptyState');
+                    
+                    container.innerHTML = '';
+                    
+                    if (this.filteredArtists.length === 0) {
+                        container.classList.add('hidden');
+                        emptyState.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    container.classList.remove('hidden');
+                    emptyState.classList.add('hidden');
+                    
+                    // Sort: featured first, then by date and time
+                    const sorted = [...this.filteredArtists].sort((a, b) => {
+                        if (a.featured && !b.featured) return -1;
+                        if (!a.featured && b.featured) return 1;
+                        const dateCompare = new Date(a.date) - new Date(b.date);
+                        if (dateCompare !== 0) return dateCompare;
+                        return a.time.localeCompare(b.time);
+                    });
+                    
+                    sorted.forEach(artist => {
+                        const card = this.createArtistCard(artist);
+                        container.appendChild(card);
+                    });
+                }
+                
+                createArtistCard(artist) {
+                    const card = document.createElement('div');
+                    card.className = `artist-card ${this.currentView === 'list' ? 'list-view-card' : ''}`;
+                    card.addEventListener('click', () => this.openModal(artist));
+                    
+                    const imageHtml = artist.image
+                        ? `<img src="${artist.image}" alt="${artist.name}" class="artist-image" loading="lazy">`
+                        : `<div class="artist-placeholder">🎵</div>`;
+                    
+                    const featuredBadge = artist.featured
+                        ? `<div class="badge badge-featured">⭐ Featured</div>`
+                        : '';
+                    
+                    const priceBadge = artist.price
+                        ? `<div class="badge badge-price">${artist.price}</div>`
+                        : '';
+                    
+                    card.innerHTML = `
+                        <div class="artist-image-wrapper">
+                            ${imageHtml}
+                            <div class="badges">
+                                <div>${featuredBadge}</div>
+                                <div class="badge badge-genre">${artist.genre}</div>
+                            </div>
+                        </div>
+                        <div class="artist-info">
+                            <h3 class="artist-name">${artist.name}</h3>
+                            <div class="artist-meta">
+                                <div class="meta-item">
+                                    <span class="meta-icon">📅</span>
+                                    <span>${this.formatDate(artist.date)}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-icon">🕐</span>
+                                    <span>${artist.time}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-icon">🎪</span>
+                                    <span>${artist.stage}</span>
+                                </div>
+                            </div>
+                            ${artist.description ? `<p class="artist-description">${artist.description}</p>` : ''}
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-small" onclick="event.stopPropagation()">View Details</button>
+                                ${priceBadge}
+                            </div>
+                        </div>
+                    `;
+                    
+                    return card;
+                }
+                
+                openModal(artist) {
+                    this.currentArtist = artist;
+                    
+                    // Set image
+                    const modalImage = document.getElementById('modalImage');
+                    if (artist.image) {
+                        modalImage.src = artist.image;
+                        modalImage.alt = artist.name;
+                    }
+                    
+                    // Set basic info
+                    document.getElementById('modalArtistName').textContent = artist.name;
+                    document.getElementById('modalArtistGenre').textContent = artist.genre;
+                    
+                    // Set meta information
+                    const metaContainer = document.getElementById('modalMeta');
+                    metaContainer.innerHTML = `
+                        <div class="modal-meta-item">
+                            <div class="modal-meta-label">📅 Date</div>
+                            <div class="modal-meta-value">${this.formatDateLong(artist.date)}</div>
+                        </div>
+                        <div class="modal-meta-item">
+                            <div class="modal-meta-label">🕐 Time</div>
+                            <div class="modal-meta-value">${artist.time}</div>
+                        </div>
+                        <div class="modal-meta-item">
+                            <div class="modal-meta-label">🎪 Stage</div>
+                            <div class="modal-meta-value">${artist.stage}</div>
+                        </div>
+                        ${artist.price ? `
+                        <div class="modal-meta-item">
+                            <div class="modal-meta-label">🎫 Price</div>
+                            <div class="modal-meta-value">${artist.price}</div>
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    // Set description
+                    if (artist.description) {
+                        document.getElementById('modalDescription').textContent = artist.description;
+                        document.getElementById('modalDescriptionSection').classList.remove('hidden');
+                    } else {
+                        document.getElementById('modalDescriptionSection').classList.add('hidden');
+                    }
+                    
+                    // Set videos
+                    const videosSection = document.getElementById('modalVideosSection');
+                    const videosContainer = document.getElementById('modalVideos');
+                    
+                    if (artist.videos && artist.videos.length > 0) {
+                        videosContainer.innerHTML = '';
+                        artist.videos.forEach(video => {
+                            const videoLink = document.createElement('a');
+                            videoLink.href = video.url;
+                            videoLink.target = '_blank';
+                            videoLink.rel = 'noopener noreferrer';
+                            videoLink.className = 'video-link';
+                            videoLink.onclick = (e) => e.stopPropagation();
+                            videoLink.innerHTML = `
+                                <div class="video-icon">▶</div>
+                                <div class="video-info">
+                                    <div class="video-title">${video.title}</div>
+                                    <div class="video-platform">${video.platform}</div>
+                                </div>
+                            `;
+                            videosContainer.appendChild(videoLink);
+                        });
+                        videosSection.classList.remove('hidden');
+                    } else {
+                        videosSection.classList.add('hidden');
+                    }
+                    
+                    // Set ticket button
+                    const ticketsBtn = document.getElementById('modalTicketsBtn');
+                    if (artist.ticketUrl) {
+                        ticketsBtn.classList.remove('hidden');
+                        ticketsBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            window.open(artist.ticketUrl, '_blank', 'noopener noreferrer');
+                        };
+                    } else {
+                        ticketsBtn.classList.add('hidden');
+                    }
+                    
+                    // Set price display
+                    const priceTag = document.getElementById('modalPrice');
+                    const priceAmount = document.getElementById('modalPriceAmount');
+                    if (artist.price) {
+                        priceAmount.textContent = artist.price;
+                        priceTag.classList.remove('hidden');
+                    } else {
+                        priceTag.classList.add('hidden');
+                    }
+                    
+                    // Show modal
+                    document.getElementById('modalOverlay').classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                closeModal() {
+                    document.getElementById('modalOverlay').classList.remove('active');
+                    document.body.style.overflow = '';
+                    this.currentArtist = null;
+                }
+                
+                shareOnTwitter() {
+                    if (!this.currentArtist) return;
+                    const text = `Check out ${this.currentArtist.name} at ProgFest 2026!`;
+                    const url = window.location.href;
+                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
+                }
+                
+                shareOnFacebook() {
+                    if (!this.currentArtist) return;
+                    const url = window.location.href;
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
+                }
+                
+                copyLink() {
+                    const url = window.location.href;
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(url).then(() => {
+                            alert('Link copied to clipboard!');
+                        });
+                    } else {
+                        // Fallback for older browsers
+                        const input = document.createElement('input');
+                        input.value = url;
+                        document.body.appendChild(input);
+                        input.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(input);
+                        alert('Link copied to clipboard!');
+                    }
+                }
+                
+                setView(view) {
+                    this.currentView = view;
+                    
+                    document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.view === view);
+                    });
+                    
+                    const grid = document.getElementById('artistsGrid');
+                    if (view === 'list') {
+                        grid.classList.add('list-view');
+                    } else {
+                        grid.classList.remove('list-view');
+                    }
+                    
+                    this.renderArtists();
+                }
+                
+                toggleTheme() {
+                    const html = document.documentElement;
+                    const current = html.getAttribute('data-theme');
+                    const newTheme = current === 'dark' ? 'light' : 'dark';
+                    
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('festival_theme', newTheme);
+                    
+                    const icon = document.getElementById('themeIcon');
+                    icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+                }
+                
+                loadTheme() {
+                    const saved = localStorage.getItem('festival_theme');
+                    if (saved) {
+                        document.documentElement.setAttribute('data-theme', saved);
+                        document.getElementById('themeIcon').textContent = saved === 'dark' ? '☀️' : '🌙';
+                    }
+                }
+                
+                formatDate(dateString) {
+                    const date = new Date(dateString + 'T00:00:00');
+                    const options = { month: 'short', day: 'numeric' };
+                    return date.toLocaleDateString('en-US', options);
+                }
+                
+                formatDateLong(dateString) {
+                    const date = new Date(dateString + 'T00:00:00');
+                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    return date.toLocaleDateString('en-US', options);
+                }
+            }
+            
+            // Initialize
+            new FestivalLineup();
+            
+        })();
+    </script>
+</body>
+</html>

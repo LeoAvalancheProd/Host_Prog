@@ -20,6 +20,7 @@ Admin access
 
 - **Admin UI is now a dedicated page:** open `/admin.html` to log in and manage the lineup. The main site pages (`index.html` and `festival-lineup-wordpress-fixed.html`) are read-only public views; they no longer contain the inline CMS to prevent accidental access.
 - **Password (client-side):** `M4M2026` (note: client-side password is not secure for production — consider server-side auth for real deployments).
+- **Local file support:** You can open `festival-lineup-wordpress-fixed.html` and `admin.html` directly from the same folder using `file://` (e.g., `file:///Users/you/Downloads/festival-lineup-wordpress-fixed.html`). The admin button and redirects are relative and login stores auth in `localStorage` so both files will work when opened locally.
 
 Simple protections implemented on `admin.html`:
 - 3s cooldown after each failed attempt to slow guessing attacks.

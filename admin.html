@@ -213,13 +213,36 @@
       // On load
       (function(){
         if (sessionStorage.getItem('festival_admin_auth') === 'true' || localStorage.getItem('festival_admin_auth') === 'true'){
-          showAdmin();
+          const params = new URLSearchParams(window.location.search);
+          const ret = params.get('return');
+          if (ret){
+            const retDecoded = decodeURIComponent(ret);
+            if (location.protocol === 'file:' && retDecoded.startsWith('/')){
+              window.location.href = 'file://' + retDecoded;
+            } else {
+              window.location.href = retDecoded;
+            }
+          } else {
+            showAdmin();
+          }
         }
 
         submit.addEventListener('click', ()=>{
           if (pwd.value === PASSWORD){
             sessionStorage.setItem('festival_admin_auth','true');
             localStorage.setItem('festival_admin_auth','true');
+            // If a return URL was provided, go back to it (supports file:// and http(s))
+            const params = new URLSearchParams(window.location.search);
+            const ret = params.get('return');
+            if (ret){
+              const retDecoded = decodeURIComponent(ret);
+              if (location.protocol === 'file:' && retDecoded.startsWith('/')){
+                window.location.href = 'file://' + retDecoded;
+              } else {
+                window.location.href = retDecoded;
+              }
+              return;
+            }
             showAdmin();
           } else {
             err.style.display='block';

@@ -143,26 +143,13 @@
         }
         
         .header-content {
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: space-between;
             height: var(--header-height);
             gap: 1rem;
         }
         
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
         
         .logo-emoji {
             font-size: 2rem;
@@ -259,33 +246,6 @@
             color: var(--text-light);
             max-width: 600px;
             margin: 0 auto 2rem;
-        }
-        
-        .hero-stats {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-        
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
         
         /* Search & Filters */
@@ -1016,21 +976,10 @@
         <div class="container">
             <!-- Hero Section -->
             <section class="hero">
-                <h1 class="hero-title">Festival Lineup 2026</h1>
-                <p class="hero-subtitle">Experience world-class performances across multiple stages</p>
                 
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-value" id="totalArtists">0</div>
-                        <div class="stat-label">Artists</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="totalStages">0</div>
-                        <div class="stat-label">Stages</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="totalDays">0</div>
-                        <div class="stat-label">Days</div>
+                       
                     </div>
                 </div>
             </section>

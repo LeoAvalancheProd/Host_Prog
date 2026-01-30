@@ -850,18 +850,24 @@ INSTALLATION:
                 tab.addEventListener('click', (e) => this.switchTab(e.target.dataset.tab));
             });
 
-            document.getElementById('festivalAddArtistForm').addEventListener('submit', (e) => this.saveArtist(e));
-            document.getElementById('festivalCancelEditBtn').addEventListener('click', () => this.cancelEdit());
-            document.getElementById('festivalExportDataBtn').addEventListener('click', () => this.exportData());
-            document.getElementById('festivalImportDataInput').addEventListener('change', (e) => this.importData(e));
-            document.getElementById('festivalClearAllBtn').addEventListener('click', () => this.clearAllData());
+            const formEl = document.getElementById('festivalAddArtistForm'); if (formEl) formEl.addEventListener('submit', (e) => this.saveArtist(e));
+            const cancelEl = document.getElementById('festivalCancelEditBtn'); if (cancelEl) cancelEl.addEventListener('click', () => this.cancelEdit());
+            const exportEl = document.getElementById('festivalExportDataBtn'); if (exportEl) exportEl.addEventListener('click', () => this.exportData());
+            const importEl = document.getElementById('festivalImportDataInput'); if (importEl) importEl.addEventListener('change', (e) => this.importData(e));
+            const clearEl = document.getElementById('festivalClearAllBtn'); if (clearEl) clearEl.addEventListener('click', () => this.clearAllData());
             
-            document.getElementById('festivalSearchInput').addEventListener('input', (e) => {
+            const searchEl = document.getElementById('festivalSearchInput'); if (searchEl) searchEl.addEventListener('input', (e) => {
                 this.searchQuery = e.target.value.toLowerCase();
                 this.applyFilters();
             });
 
             document.getElementById('festivalThemeToggle').addEventListener('click', () => this.toggleTheme());
+
+            // Global delegated click handler to ensure buttons work even if elements are added dynamically
+            document.addEventListener('click', this._handleGlobalClick.bind(this), true);
+
+            // Smoke-test to warn if essential buttons are missing (helps debugging in production)
+            setTimeout(() => this._checkButtons(), 500);
         }
 
         toggleAdmin() {
@@ -888,6 +894,39 @@ INSTALLATION:
             
             if (tabName === 'artists') this.refreshAdminList();
             if (tabName === 'settings') this.updateStats();
+        }
+
+        // Delegated handler for robust click handling
+        _handleGlobalClick(e) {
+            try {
+                const el = e.target.closest && e.target.closest('button, a, [data-artist-id], [data-delete-id], .filter-btn');
+                if (!el) return;
+
+                if (el.id === 'festivalAdminToggleBtn') { e.preventDefault(); this.toggleAdmin(); return; }
+                if (el.id === 'festivalAdminLogout') { e.preventDefault(); sessionStorage.removeItem('festival_admin_auth'); localStorage.removeItem('festival_admin_auth'); alert('🔒 Logged out'); return; }
+                if (el.id === 'festivalExportDataBtn') { e.preventDefault(); this.exportData(); return; }
+                if (el.id === 'festivalClearAllBtn') { e.preventDefault(); this.clearAllData(); return; }
+                if (el.id === 'festivalSaveArtistBtn') { e.preventDefault(); const form = document.getElementById('festivalAddArtistForm'); if (form) { if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true})); } return; }
+                if (el.id === 'festivalCancelEditBtn') { e.preventDefault(); this.cancelEdit(); return; }
+
+                if (el.classList && el.classList.contains('filter-btn')) { e.preventDefault(); const f = el.dataset.filter; const t = el.dataset.type; this.setFilter(f, t); return; }
+
+                const edit = el.getAttribute && el.getAttribute('data-artist-id');
+                if (edit) { e.preventDefault(); this.editArtist(edit); return; }
+                const del = el.getAttribute && el.getAttribute('data-delete-id');
+                if (del) { e.preventDefault(); this.deleteArtist(del); return; }
+            } catch (err) { console.warn('Global click handler error', err); }
+        }
+
+        // Quick UI diagnostics
+        _checkButtons() {
+            const required = ['festivalAdminToggleBtn','festivalThemeToggle','festivalSearchInput'];
+            const missing = required.filter(id => !document.getElementById(id));
+            if (missing.length) {
+                console.warn('Festival Lineup: missing UI elements:', missing);
+                const b = document.getElementById('festival-lineup-error-banner');
+                if (b) b.textContent = 'Warning: UI elements missing: ' + missing.join(', ');
+            }
         }
 
         refreshAdminList() {

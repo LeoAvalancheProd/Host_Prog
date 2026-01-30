@@ -15,6 +15,12 @@ Quick setup (publish on GitHub Pages) ✅
 Notes & tips:
 
 - This site is fully static. Artist data is stored in your browser's LocalStorage when using the admin panel.
+
+Admin access
+
+- Open `/admin.html`. This page requires a password to unlock admin features and will redirect back to the festival page with the admin panel open.
+- **Password (client-side):** `M4M2026` (note: client-side password is not secure for production, consider server-side auth for real deployments).
+
 - If you want to use a custom domain, add a `CNAME` file at the repo root or configure in the Pages settings.
 - A `.nojekyll` file is included to prevent GitHub Pages from using Jekyll processing.
 

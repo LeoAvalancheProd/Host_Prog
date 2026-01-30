@@ -704,7 +704,10 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
 <div class="admin-panel" id="festivalAdminPanel">
     <div class="admin-header">
         <h2>⚙️ Lineup Manager</h2>
-        <button class="admin-close" id="festivalAdminClose">×</button>
+        <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn btn-sm" id="festivalAdminLogout" style="display:none;">Logout</button>
+            <button class="admin-close" id="festivalAdminClose">×</button>
+        </div>
     </div>
     
     <div class="admin-content">
@@ -848,7 +851,12 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
             document.addEventListener('keydown', (e) => {
                 if (e.ctrlKey && e.shiftKey && e.key === 'A') {
                     e.preventDefault();
-                    this.toggleAdmin();
+                    if (sessionStorage.getItem('festival_admin_auth') === 'true') {
+                        this.toggleAdmin();
+                    } else {
+                        const returnUrl = encodeURIComponent(window.location.pathname + window.location.search + '#adminShortcut');
+                        window.location.href = `/admin.html?return=${returnUrl}`;
+                    }
                 }
             });
         }
@@ -914,9 +922,26 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
         }
 
         setupEventListeners() {
-            document.getElementById('festivalAdminToggleBtn').addEventListener('click', () => this.toggleAdmin());
+            document.getElementById('festivalAdminToggleBtn').addEventListener('click', () => {
+                if (sessionStorage.getItem('festival_admin_auth') === 'true') {
+                    this.toggleAdmin();
+                } else {
+                    const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+                    window.location.href = `/admin.html?return=${returnUrl}`;
+                }
+            });
             document.getElementById('festivalAdminClose').addEventListener('click', () => this.toggleAdmin());
             document.getElementById('festivalAdminOverlay').addEventListener('click', () => this.toggleAdmin());
+
+            // Logout button (shown when authenticated)
+            const logoutBtn = document.getElementById('festivalAdminLogout');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    sessionStorage.removeItem('festival_admin_auth');
+                    this.toggleAdmin();
+                    alert('🔒 Logged out');
+                });
+            }
 
             document.querySelectorAll('#festivalLineupRoot .admin-tab').forEach(tab => {
                 tab.addEventListener('click', (e) => this.switchTab(e.target.dataset.tab));
@@ -939,9 +964,17 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
         toggleAdmin() {
             document.getElementById('festivalAdminPanel').classList.toggle('active');
             document.getElementById('festivalAdminOverlay').classList.toggle('active');
+            const logoutBtn = document.getElementById('festivalAdminLogout');
             if (document.getElementById('festivalAdminPanel').classList.contains('active')) {
                 this.refreshAdminList();
                 this.updateDataLists();
+                if (sessionStorage.getItem('festival_admin_auth') === 'true') {
+                    if (logoutBtn) logoutBtn.style.display = 'inline-flex';
+                } else {
+                    if (logoutBtn) logoutBtn.style.display = 'none';
+                }
+            } else {
+                if (logoutBtn) logoutBtn.style.display = 'none';
             }
         }
 

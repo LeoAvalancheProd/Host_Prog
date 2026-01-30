@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login — Festival Lineup</title>
+  <style>
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#f6f7fb;color:#111;display:flex;align-items:center;justify-content:center;height:100vh}
+    .card{background:#fff;padding:28px;border-radius:12px;box-shadow:0 10px 30px rgba(20,20,40,0.06);width:360px;}
+    h1{font-size:1.2rem;margin:0 0 8px}
+    .hint{color:#666;font-size:0.9rem;margin-bottom:18px}
+    input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid #e6e9ef;margin-bottom:12px;font-size:1rem}
+    button{width:100%;padding:12px;border-radius:8px;border:none;background:#FF6B35;color:white;font-weight:700;cursor:pointer}
+    .error{color:#c53030;margin-bottom:12px;display:none}
+    .note{font-size:0.85rem;color:#666;margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Admin Login</h1>
+    <div class="hint">Enter the admin password to access the Lineup Manager.</div>
+    <div id="err" class="error">Invalid password</div>
+    <input id="pwd" type="password" placeholder="Password">
+    <button id="submit">Unlock Admin</button>
+    <div class="note">Password is stored only in your browser session (client-side). Use carefully.</div>
+  </div>
+
+  <script>
+    (function(){
+      const PASSWORD = 'M4M2026'; // client-side password (provided)
+      const submit = document.getElementById('submit');
+      const pwd = document.getElementById('pwd');
+      const err = document.getElementById('err');
+
+      function getReturnUrl(){
+        const params = new URLSearchParams(window.location.search);
+        const ret = params.get('return');
+        if (ret) return decodeURIComponent(ret);
+        // default to festival page
+        return '/festival-lineup-wordpress-fixed.html?admin=true';
+      }
+
+      submit.addEventListener('click', () => {
+        if (pwd.value === PASSWORD) {
+          sessionStorage.setItem('festival_admin_auth', 'true');
+          // Redirect back to return url (and ensure admin param)
+          let ret = getReturnUrl();
+          if (ret.indexOf('admin=true') === -1) {
+            ret += (ret.indexOf('?') === -1 ? '?' : '&') + 'admin=true';
+          }
+          window.location.href = ret;
+        } else {
+          err.style.display = 'block';
+        }
+      });
+
+      pwd.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit.click(); });
+    })();
+  </script>
+</body>
+</html>

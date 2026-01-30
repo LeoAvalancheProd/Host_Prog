@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Launch ProgFest in Chrome",
+      "url": "http://localhost:8000/",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "Serve project"
+    }
+  ]
+}

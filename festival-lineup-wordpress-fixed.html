@@ -708,6 +708,23 @@ INSTALLATION:
 <script>
 (function() {
     'use strict';
+    try {
+        // global safety: catch unexpected runtime errors and surface them visibly
+        window.addEventListener('error', function (evt) {
+            console.error('FestivalLineup uncaught error', evt.error || evt.message || evt);
+            try {
+                var b = document.getElementById('festival-lineup-error-banner');
+                if (!b) {
+                    b = document.createElement('div');
+                    b.id = 'festival-lineup-error-banner';
+                    b.style = 'position:fixed;left:0;right:0;top:0;background:#ff4d4f;color:#fff;padding:8px 12px;font-weight:700;z-index:100000;text-align:center;font-family:system-ui,Segoe UI,Roboto,Arial;';
+                    document.body.appendChild(b);
+                }
+                b.textContent = 'Festival script error: ' + (evt.error && evt.error.message ? evt.error.message : (evt.message || 'Unknown error'));
+            } catch (inner) {
+                console.warn('Failed to render error banner', inner);
+            }
+        });
 
     // Base path helper to support file:// and hosted environments
     const _festival_basePath = (function(){
@@ -1235,6 +1252,19 @@ INSTALLATION:
         document.getElementById('festivalLineupRoot').setAttribute('data-theme', 'dark');
         document.getElementById('festivalThemeIcon').textContent = '☀️';
         document.getElementById('festivalThemeText').textContent = 'Light Mode';
+    }
+    } catch (err) {
+        console.error('FestivalLineup fatal error', err);
+        try {
+            var b = document.getElementById('festival-lineup-error-banner');
+            if (!b) {
+                b = document.createElement('div');
+                b.id = 'festival-lineup-error-banner';
+                b.style = 'position:fixed;left:0;right:0;top:0;background:#ff4d4f;color:#fff;padding:8px 12px;font-weight:700;z-index:100000;text-align:center;font-family:system-ui,Segoe UI,Roboto,Arial;';
+                document.body.appendChild(b);
+            }
+            b.textContent = 'Festival script error: ' + (err && err.message ? err.message : String(err));
+        } catch (inner) { console.warn('Could not show error banner', inner); }
     }
 })();
 </script>

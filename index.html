@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProgFest — Festival Lineup 2026</title>
     
- 
     <!-- Meta Tags for SEO & Social Sharing -->
     <meta name="description" content="Festival Lineup 2026 — view artists, filters and set times. Book your tickets now!">
     <meta property="og:title" content="ProgFest — Festival Lineup 2026">
@@ -13,11 +12,14 @@
     <meta property="og:image" content="https://via.placeholder.com/1200x630/FF6B35/FFFFFF?text=ProgFest+2026">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-   
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🎵</text></svg>" type="image/svg+xml">
     
     <style>
         /* ============================================================================
-           
+           PROGFEST PROFESSIONAL LINEUP - IFRAME OPTIMIZED
+           God-tier code with advanced features & pixel-perfect design
            ============================================================================ */
         
         :root {
@@ -985,12 +987,17 @@
     <!-- Header -->
     <header class="header-sticky">
         <div class="container">
-            <div class="header-content">
-                </a>
+           
+            
                 
                 <div class="header-actions">
+                    <div class="view-toggle hidden" id="viewToggle">
+                        <button class="view-toggle-btn active" data-view="grid">Grid</button>
+                        <button class="view-toggle-btn" data-view="list">List</button>
+                    </div>
                     
-                    
+            
+                    </button>
                     
                     <a href="https://tickets.example.com" class="btn btn-primary hidden" id="headerTicketsBtn">
                         🎫 Get Tickets
@@ -1000,10 +1007,18 @@
         </div>
     </header>
     
- 
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+               <button class="btn btn-ghost btn-icon" id="themeToggle" title="Toggle theme">
+                        <span id="themeIcon">🌙</span>
+                
+               
+            </section>
             
             <!-- Controls -->
-            
             <section class="controls-section">
                 <div class="search-wrapper">
                     <span class="search-icon">🔍</span>
@@ -1014,10 +1029,6 @@
                         placeholder="Search artists, genres, or stages..."
                         autocomplete="off"
                     >
-                    <button class="btn btn-ghost btn-icon" id="themeToggle" title="Toggle theme">
-                        <span id="themeIcon">🌙</span>
-                    </button>
-                    
                 </div>
                 
                 <div class="filters" id="filters">

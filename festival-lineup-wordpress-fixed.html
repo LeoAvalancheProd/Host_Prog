@@ -1292,6 +1292,36 @@ INSTALLATION:
         document.getElementById('festivalThemeIcon').textContent = '☀️';
         document.getElementById('festivalThemeText').textContent = 'Light Mode';
     }
+
+    // Debug panel (enable by adding ?debug=1 to the URL)
+    if (window.location.search.includes('debug=1')) {
+        try {
+            const dbg = document.createElement('div');
+            dbg.id = 'festival-debug-panel';
+            dbg.style = 'position:fixed;left:12px;bottom:12px;z-index:100001;background:rgba(0,0,0,0.8);color:#fff;padding:10px;border-radius:8px;font-family:system-ui,Segoe UI,Roboto,Arial;font-size:13px;max-width:360px;max-height:40vh;overflow:auto';
+            dbg.innerHTML = `<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><strong style="font-size:13px">Festival Debug</strong><button id="festivalDebugClear" style="margin-left:auto;padding:6px;border-radius:6px;border:none;cursor:pointer;background:#FF6B35;color:#fff">Clear</button></div><div id="festivalDebugStatus" style="opacity:0.9;margin-bottom:8px;font-size:12px"></div><div id="festivalDebugLog" style="max-height:28vh;overflow:auto;font-size:12px"></div>`;
+            document.body.appendChild(dbg);
+            const log = (m) => { const l = document.getElementById('festivalDebugLog'); if (!l) return; const entry = document.createElement('div'); entry.textContent = new Date().toLocaleTimeString() + ' — ' + m; l.prepend(entry); };
+            document.getElementById('festivalDebugClear').addEventListener('click', () => { document.getElementById('festivalDebugLog').innerHTML = ''; });
+            const statusEl = document.getElementById('festivalDebugStatus');
+            if (statusEl) {
+                const statusText = [];
+                statusText.push('initialized: ' + !!window.festivalLineupInitialized);
+                statusText.push('buttons: ' + document.querySelectorAll('button').length);
+                statusText.push('filters: ' + document.querySelectorAll('.filter-btn').length);
+                statusText.push('adminToggle: ' + !!document.getElementById('festivalAdminToggleBtn'));
+                statusText.push('themeToggle: ' + !!document.getElementById('festivalThemeToggle'));
+                statusEl.textContent = statusText.join(' · ');
+            }
+            document.addEventListener('click', function(e){
+                const t = e.target.closest && e.target.closest('button, a, .filter-btn, [data-artist-id], [data-delete-id]');
+                if (t) {
+                    log('click on ' + (t.id || t.className || t.tagName) + (t.dataset ? ' ' + JSON.stringify(t.dataset) : ''));
+                }
+            }, true);
+            log('Debug panel initialized. Clicks will appear here.');
+        } catch (e) { console.warn('Failed to init debug panel', e); }
+    }
     } catch (err) {
         console.error('FestivalLineup fatal error', err);
         try {

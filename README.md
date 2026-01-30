@@ -26,6 +26,11 @@ Simple protections implemented on `admin.html`:
 - Lockout after 5 failed attempts for 10 minutes. Failed attempts are tracked in `localStorage`.
 - Attempt/lockout status is shown on the login page.
 
+Audit log (timestamped):
+- All admin actions are recorded to a timestamped audit log in `localStorage` under `festival_lineup_audit` (add/update/delete/import/export/clear/login/logout).
+- Audit is visible in the admin UI and can be exported or cleared.
+- Audit entries are capped to the most recent 500 events.
+
 - If you want to use a custom domain, add a `CNAME` file at the repo root or configure in the Pages settings.
 - A `.nojekyll` file is included to prevent GitHub Pages from using Jekyll processing.
 

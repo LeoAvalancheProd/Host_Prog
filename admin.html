@@ -69,6 +69,16 @@
           <p style="margin:0 0 6px 0"><strong>Total Artists:</strong> <span id="adminTotalArtists">0</span></p>
           <p style="margin:0 0 6px 0"><strong>Total Stages:</strong> <span id="adminTotalStages">0</span></p>
           <p style="margin:0"><strong>Total Genres:</strong> <span id="adminTotalGenres">0</span></p>
+
+          <hr style="margin-top:16px">
+          <h4 style="margin:8px 0">Activity Log</h4>
+          <div style="max-height:220px;overflow:auto;border:1px solid #eee;padding:10px;border-radius:8px;background:#fafafa">
+            <div id="adminAuditList"><p style="margin:0;color:#666">No activity yet.</p></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button id="adminExportAuditBtn" class="btn">Export Audit</button>
+            <button id="adminClearAuditBtn" class="btn btn-danger">Clear Audit</button>
+          </div>
         </div>
       </div>
     </div>
@@ -162,26 +172,43 @@
 
       function editArtist(id){ const artists=loadArtists(); const a=artists.find(x=>x.id===id); if(!a) return; editIdEl.value=a.id; nameEl.value=a.name; stageEl.value=a.stage; dateEl.value=a.date; timeEl.value=a.time||''; genreEl.value=a.genre; imageEl.value=a.image||''; descEl.value=a.description||''; featuredEl.checked = !!a.featured; document.getElementById('adminSaveBtn').textContent='💾 Update'; }
 
-      function deleteArtist(id){ if(!confirm('Delete this artist?')) return; let artists=loadArtists(); artists=artists.filter(a=>a.id!==id); saveArtists(artists); renderList(); alert('Deleted'); }
+      function deleteArtist(id){ const artists=loadArtists(); const artist = artists.find(a=>a.id===id); if(!artist) return; if(!confirm(`Delete "${artist.name}"?`)) return; let remaining = artists.filter(a=>a.id!==id); saveArtists(remaining); recordAudit('delete', `${artist.name}`); renderList(); alert('Deleted'); }
 
-      form.addEventListener('submit', (e)=>{ e.preventDefault(); const artists=loadArtists(); const id = editIdEl.value || Date.now().toString(); const artist={ id, name: nameEl.value.trim(), stage: stageEl.value.trim(), date: dateEl.value, time: timeEl.value, genre: genreEl.value.trim(), image: imageEl.value.trim(), description: descEl.value.trim(), featured: featuredEl.checked }; if (editIdEl.value){ const idx = artists.findIndex(x=>x.id===id); if (idx>-1) artists[idx]=artist; alert('Updated'); } else { artists.push(artist); alert('Added'); } saveArtists(artists); renderList(); resetForm(); });
+      form.addEventListener('submit', (e)=>{ e.preventDefault(); const artists=loadArtists(); const wasEdit = !!editIdEl.value; const id = editIdEl.value || Date.now().toString(); const artist={ id, name: nameEl.value.trim(), stage: stageEl.value.trim(), date: dateEl.value, time: timeEl.value, genre: genreEl.value.trim(), image: imageEl.value.trim(), description: descEl.value.trim(), featured: featuredEl.checked }; if (wasEdit){ const idx = artists.findIndex(x=>x.id===id); if (idx>-1) artists[idx]=artist; alert('Updated'); recordAudit('update', `${artist.name}`); } else { artists.push(artist); alert('Added'); recordAudit('add', `${artist.name}`); } saveArtists(artists); renderList(); resetForm(); });
 
       cancelBtn.addEventListener('click', ()=>resetForm());
 
-      exportBtn.addEventListener('click', ()=>{ const data={version:'1.0',exportDate:new Date().toISOString(),artists:loadArtists()}; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`festival-lineup-${new Date().toISOString().split('T')[0]}.json`; a.click(); URL.revokeObjectURL(url); alert('Exported'); });
+      exportBtn.addEventListener('click', ()=>{ const data={version:'1.0',exportDate:new Date().toISOString(),artists:loadArtists()}; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`festival-lineup-${new Date().toISOString().split('T')[0]}.json`; a.click(); URL.revokeObjectURL(url); recordAudit('export', `artists:${loadArtists().length}`); alert('Exported'); });
 
-      importInput.addEventListener('change',(e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=(ev)=>{ try{ const data=JSON.parse(ev.target.result); if(!data.artists||!Array.isArray(data.artists)) throw new Error('Invalid'); if(!confirm(`Import ${data.artists.length} artists? This will replace current data.`)) return; saveArtists(data.artists); renderList(); alert('Imported'); }catch(err){ alert('Failed to import'); } }; r.readAsText(f); e.target.value=''; });
+      importInput.addEventListener('change',(e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=(ev)=>{ try{ const data=JSON.parse(ev.target.result); if(!data.artists||!Array.isArray(data.artists)) throw new Error('Invalid'); if(!confirm(`Import ${data.artists.length} artists? This will replace current data.`)) return; saveArtists(data.artists); renderList(); recordAudit('import', `artists:${data.artists.length}`); alert('Imported'); }catch(err){ alert('Failed to import'); } }; r.readAsText(f); e.target.value=''; });
 
-      clearBtn.addEventListener('click', ()=>{ if(confirm('Delete ALL artists?')){ saveArtists([]); renderList(); alert('Cleared'); } });
+      clearBtn.addEventListener('click', ()=>{ if(confirm('Delete ALL artists?')){ saveArtists([]); renderList(); recordAudit('clear_all', 'all artists removed'); alert('Cleared'); } });
+
+      // Audit export/clear handlers
+      const exportAuditBtn = document.getElementById('adminExportAuditBtn');
+      const clearAuditBtn = document.getElementById('adminClearAuditBtn');
+      if (exportAuditBtn) exportAuditBtn.addEventListener('click', ()=>{ const audits = loadAudit(); const blob=new Blob([JSON.stringify({version:'1.0',exportDate:new Date().toISOString(),audits},null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`festival-lineup-audit-${new Date().toISOString().split('T')[0]}.json`; a.click(); URL.revokeObjectURL(url); alert('Audit exported'); });
+      if (clearAuditBtn) clearAuditBtn.addEventListener('click', ()=>{ if(confirm('Clear audit log?')){ clearAudit(); alert('Audit cleared'); } });
 
       function updateStats(){ const artists=loadArtists(); document.getElementById('adminTotalArtists').textContent = artists.length; document.getElementById('adminTotalStages').textContent = new Set(artists.map(a=>a.stage)).size; document.getElementById('adminTotalGenres').textContent = new Set(artists.map(a=>a.genre)).size; }
 
       function updateDataLists(){ const artists=loadArtists(); const stages = [...new Set(artists.map(a=>a.stage))]; const genres = [...new Set(artists.map(a=>a.genre))]; document.getElementById('adminStageList').innerHTML = stages.map(s=>`<option value="${s}">`).join(''); document.getElementById('adminGenreList').innerHTML = genres.map(g=>`<option value="${g}">`).join(''); }
 
-      function showAdmin(){ loginCard.style.display='none'; adminApp.style.display='block'; renderList(); }
+      // --- Audit helpers ---
+      const AUDIT_KEY = 'festival_lineup_audit';
+      function loadAudit(){ try{ const raw = localStorage.getItem(AUDIT_KEY); return raw ? JSON.parse(raw) : []; }catch(e){ return []; } }
+      function saveAudit(arr){ localStorage.setItem(AUDIT_KEY, JSON.stringify(arr)); }
+      function recordAudit(action, details){ try{ const arr = loadAudit(); const entry = { ts: Date.now(), action, details: details || '', by: 'admin' }; arr.push(entry); // cap to last 500
+          if (arr.length > 500) arr.splice(0, arr.length - 500);
+          saveAudit(arr); renderAudit(); }catch(e){ console.warn('Audit record failed', e); } }
+      function clearAudit(){ localStorage.removeItem(AUDIT_KEY); renderAudit(); }
+      function renderAudit(){ const list = loadAudit(); const container = document.getElementById('adminAuditList'); if(!container) return; if(!list || list.length===0){ container.innerHTML = '<p style="margin:0;color:#666">No activity yet.</p>'; return; } container.innerHTML = list.slice().reverse().map(it=>{ const d = new Date(it.ts); const ts = d.toLocaleString(); const details = it.details ? ` — ${it.details}` : ''; return `<div style="padding:6px 0;border-bottom:1px solid #efefef;font-size:0.95rem;color:#222">${ts} — <strong>${escapeHtml(it.action)}</strong>${escapeHtml(details)}</div>`; }).join(''); }
+      function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+      function showAdmin(){ loginCard.style.display='none'; adminApp.style.display='block'; renderList(); renderAudit(); }
 
       // Logout
-      logoutBtn.addEventListener('click', ()=>{ sessionStorage.removeItem('festival_admin_auth'); adminApp.style.display='none'; loginCard.style.display='block'; });
+      logoutBtn.addEventListener('click', ()=>{ sessionStorage.removeItem('festival_admin_auth'); recordAudit('logout','admin logged out'); adminApp.style.display='none'; loginCard.style.display='block'; });
 
       // On load
       (function(){

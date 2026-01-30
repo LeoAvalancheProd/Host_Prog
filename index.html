@@ -991,9 +991,6 @@
                 <div class="header-actions">
                     
                     
-                    <button class="btn btn-ghost btn-icon" id="themeToggle" title="Toggle theme">
-                        <span id="themeIcon">🌙</span>
-                    </button>
                     
                     <a href="https://tickets.example.com" class="btn btn-primary hidden" id="headerTicketsBtn">
                         🎫 Get Tickets
@@ -1003,31 +1000,10 @@
         </div>
     </header>
     
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Hero Section -->
-            <section class="hero">
-                <h1 class="hero-title">Festival Lineup 2026</h1>
-                
-                
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-value" id="totalArtists">0</div>
-                        <div class="stat-label">Artists</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="totalStages">0</div>
-                        <div class="stat-label">Stages</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="totalDays">0</div>
-                        <div class="stat-label">Days</div>
-                    </div>
-                </div>
-            </section>
+ 
             
             <!-- Controls -->
+            
             <section class="controls-section">
                 <div class="search-wrapper">
                     <span class="search-icon">🔍</span>
@@ -1038,6 +1014,10 @@
                         placeholder="Search artists, genres, or stages..."
                         autocomplete="off"
                     >
+                    <button class="btn btn-ghost btn-icon" id="themeToggle" title="Toggle theme">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    
                 </div>
                 
                 <div class="filters" id="filters">

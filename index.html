@@ -695,135 +695,9 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
     </div>
 </div>
 
-<button class="admin-toggle-btn" id="festivalAdminToggleBtn" title="Open Admin Panel (Ctrl+Shift+A)">
-    🔧
-</button>
+<!-- Admin is managed on a dedicated page: /admin.html -->
+<!-- Removed inline admin UI — use /admin.html to manage artists -->
 
-<div class="admin-overlay" id="festivalAdminOverlay"></div>
-
-<div class="admin-panel" id="festivalAdminPanel">
-    <div class="admin-header">
-        <h2>⚙️ Lineup Manager</h2>
-        <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn btn-sm" id="festivalAdminLogout" style="display:none;">Logout</button>
-            <button class="admin-close" id="festivalAdminClose">×</button>
-        </div>
-    </div>
-    
-    <div class="admin-content">
-        <div class="admin-tabs">
-            <button class="admin-tab active" data-tab="artists">Artists</button>
-            <button class="admin-tab" data-tab="add">Add New</button>
-            <button class="admin-tab" data-tab="settings">Settings</button>
-        </div>
-
-        <div class="admin-tab-content active" id="festivalTabArtists">
-            <div class="alert alert-info">
-                💡 Click edit button to modify. All changes save automatically.
-            </div>
-            <div class="artist-list-admin" id="festivalArtistListAdmin"></div>
-        </div>
-
-        <div class="admin-tab-content" id="festivalTabAdd">
-            <h3 style="margin-bottom: 20px;">Add New Artist</h3>
-            <form id="festivalAddArtistForm">
-                <input type="hidden" id="festivalEditArtistId">
-                
-                <div class="form-group">
-                    <label class="form-label">Artist Name *</label>
-                    <input type="text" class="form-input" id="festivalArtistName" required placeholder="e.g., The Electric Dreams">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Stage *</label>
-                    <input type="text" class="form-input" id="festivalArtistStage" required placeholder="e.g., Main Stage" list="festivalStageList">
-                    <datalist id="festivalStageList"></datalist>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Date *</label>
-                    <input type="date" class="form-input" id="festivalArtistDate" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Time *</label>
-                    <input type="time" class="form-input" id="festivalArtistTime" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Genre *</label>
-                    <input type="text" class="form-input" id="festivalArtistGenre" required placeholder="e.g., Electronic" list="festivalGenreList">
-                    <datalist id="festivalGenreList"></datalist>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Image URL</label>
-                    <input type="url" class="form-input" id="festivalArtistImage" placeholder="https://example.com/image.jpg">
-                    <p class="form-hint">Paste direct image link (JPG, PNG, WebP)</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-textarea" id="festivalArtistDescription" placeholder="Tell us about this artist..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Website</label>
-                    <input type="url" class="form-input" id="festivalArtistWebsite" placeholder="https://artist-website.com">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" style="display: flex; align-items: center; gap: 10px;">
-                        <input type="checkbox" id="festivalArtistFeatured" style="width: auto;">
-                        Featured Artist (shows ⭐ badge)
-                    </label>
-                </div>
-
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-primary btn-block" id="festivalSaveArtistBtn">
-                        💾 Save Artist
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-block" id="festivalCancelEditBtn" style="display: none;">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="admin-tab-content" id="festivalTabSettings">
-            <h3 style="margin-bottom: 20px;">Data Management</h3>
-            
-            <div class="form-group">
-                <button class="btn btn-success btn-block" id="festivalExportDataBtn">
-                    📥 Export Data (JSON)
-                </button>
-                <p class="form-hint">Download backup of all artists</p>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Import Data (JSON)</label>
-                <input type="file" class="form-input" id="festivalImportDataInput" accept=".json">
-                <p class="form-hint">Upload previously exported file</p>
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-danger btn-block" id="festivalClearAllBtn">
-                    🗑️ Clear All Data
-                </button>
-                <p class="form-hint">⚠️ Permanently deletes all artists!</p>
-            </div>
-
-            <hr style="margin: 30px 0; border: none; border-top: 2px solid var(--border);">
-
-            <h3 style="margin-bottom: 20px;">Statistics</h3>
-            <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md);">
-                <p style="margin: 0 0 10px 0;"><strong>Total Artists:</strong> <span id="festivalTotalArtists">0</span></p>
-                <p style="margin: 0 0 10px 0;"><strong>Total Stages:</strong> <span id="festivalTotalStages">0</span></p>
-                <p style="margin: 0;"><strong>Total Genres:</strong> <span id="festivalTotalGenres">0</span></p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
 (function() {
@@ -851,12 +725,8 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
             document.addEventListener('keydown', (e) => {
                 if (e.ctrlKey && e.shiftKey && e.key === 'A') {
                     e.preventDefault();
-                    if (sessionStorage.getItem('festival_admin_auth') === 'true') {
-                        this.toggleAdmin();
-                    } else {
-                        const returnUrl = encodeURIComponent(window.location.pathname + window.location.search + '#adminShortcut');
-                        window.location.href = `/admin.html?return=${returnUrl}`;
-                    }
+                    const returnUrl = encodeURIComponent(window.location.pathname + window.location.search + '#adminShortcut');
+                    window.location.href = `/admin.html?return=${returnUrl}`;
                 }
             });
         }
@@ -922,23 +792,26 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
         }
 
         setupEventListeners() {
-            document.getElementById('festivalAdminToggleBtn').addEventListener('click', () => {
-                if (sessionStorage.getItem('festival_admin_auth') === 'true') {
-                    this.toggleAdmin();
-                } else {
+            const adminToggle = document.getElementById('festivalAdminToggleBtn');
+            if (adminToggle) {
+                adminToggle.addEventListener('click', () => {
                     const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
                     window.location.href = `/admin.html?return=${returnUrl}`;
-                }
-            });
-            document.getElementById('festivalAdminClose').addEventListener('click', () => this.toggleAdmin());
-            document.getElementById('festivalAdminOverlay').addEventListener('click', () => this.toggleAdmin());
+                });
+            }
 
-            // Logout button (shown when authenticated)
+            const adminClose = document.getElementById('festivalAdminClose');
+            if (adminClose) adminClose.addEventListener('click', () => this.toggleAdmin());
+
+            const adminOverlay = document.getElementById('festivalAdminOverlay');
+            if (adminOverlay) adminOverlay.addEventListener('click', () => this.toggleAdmin());
+
+            // Logout button (client-side session logout)
             const logoutBtn = document.getElementById('festivalAdminLogout');
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', () => {
                     sessionStorage.removeItem('festival_admin_auth');
-                    this.toggleAdmin();
+                    // panel removed on main site; just alert
                     alert('🔒 Logged out');
                 });
             }
@@ -962,20 +835,21 @@ PROFESSIONAL FESTIVAL LINEUP - GITHUB PAGES READY
         }
 
         toggleAdmin() {
-            document.getElementById('festivalAdminPanel').classList.toggle('active');
-            document.getElementById('festivalAdminOverlay').classList.toggle('active');
-            const logoutBtn = document.getElementById('festivalAdminLogout');
-            if (document.getElementById('festivalAdminPanel').classList.contains('active')) {
-                this.refreshAdminList();
-                this.updateDataLists();
-                if (sessionStorage.getItem('festival_admin_auth') === 'true') {
-                    if (logoutBtn) logoutBtn.style.display = 'inline-flex';
-                } else {
-                    if (logoutBtn) logoutBtn.style.display = 'none';
+            // Admin UI has been moved to a dedicated page. Redirect to /admin.html
+            const panel = document.getElementById('festivalAdminPanel');
+            if (panel) {
+                // If admin panel exists (legacy), toggle it safely
+                const overlay = document.getElementById('festivalAdminOverlay');
+                panel.classList.toggle('active');
+                if (overlay) overlay.classList.toggle('active');
+                if (panel.classList.contains('active')) {
+                    this.refreshAdminList();
+                    this.updateDataLists();
                 }
-            } else {
-                if (logoutBtn) logoutBtn.style.display = 'none';
+                return;
             }
+            const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+            window.location.href = `/admin.html?return=${returnUrl}`;
         }
 
         switchTab(tabName) {

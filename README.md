@@ -18,8 +18,8 @@ Notes & tips:
 
 Admin access
 
-- Open `/admin.html`. This page requires a password to unlock admin features and will redirect back to the festival page with the admin panel open.
-- **Password (client-side):** `M4M2026` (note: client-side password is not secure for production, consider server-side auth for real deployments).
+- **Admin UI is now a dedicated page:** open `/admin.html` to log in and manage the lineup. The main site pages (`index.html` and `festival-lineup-wordpress-fixed.html`) are read-only public views; they no longer contain the inline CMS to prevent accidental access.
+- **Password (client-side):** `M4M2026` (note: client-side password is not secure for production — consider server-side auth for real deployments).
 
 - If you want to use a custom domain, add a `CNAME` file at the repo root or configure in the Pages settings.
 - A `.nojekyll` file is included to prevent GitHub Pages from using Jekyll processing.

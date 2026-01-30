@@ -16,7 +16,7 @@
   </style>
 </head>
 <body>
-  <div class="card">
+  <div id="loginCard" class="card">
     <h1>Admin Login</h1>
     <div class="hint">Enter the admin password to access the Lineup Manager.</div>
     <div id="err" class="error">Invalid password</div>
@@ -25,36 +25,157 @@
     <div class="note">Password is stored only in your browser session (client-side). Use carefully.</div>
   </div>
 
+  <!-- Admin App (hidden until authenticated) -->
+  <div id="adminApp" style="display:none; max-width:1100px; width:100%; padding:24px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+      <h2 style="margin:0">🛠️ Lineup Manager (Admin)</h2>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="/" target="_blank" class="btn">Open Site</a>
+        <button id="adminLogout" class="btn btn-danger">Logout</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:18px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:320px;">
+        <div style="background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(10,20,40,0.04);">
+          <h3 style="margin-top:0">Artists</h3>
+          <div class="artist-list-admin" id="adminArtistList"></div>
+        </div>
+      </div>
+
+      <div style="width:420px;">
+        <div style="background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(10,20,40,0.04);">
+          <h3 style="margin-top:0">Add / Edit Artist</h3>
+          <form id="adminAddArtistForm">
+            <input type="hidden" id="adminEditId">
+            <div style="margin-bottom:12px;"><label style="font-weight:600">Name *</label><input id="adminArtistName" class="form-input" required></div>
+            <div style="margin-bottom:12px;"><label style="font-weight:600">Stage *</label><input id="adminArtistStage" class="form-input" required list="adminStageList"><datalist id="adminStageList"></datalist></div>
+            <div style="display:flex;gap:8px;margin-bottom:12px;"><div style="flex:1"><label style="font-weight:600">Date *</label><input id="adminArtistDate" type="date" class="form-input" required></div><div style="width:120px"><label style="font-weight:600">Time *</label><input id="adminArtistTime" type="time" class="form-input" required></div></div>
+            <div style="margin-bottom:12px;"><label style="font-weight:600">Genre *</label><input id="adminArtistGenre" class="form-input" required list="adminGenreList"><datalist id="adminGenreList"></datalist></div>
+            <div style="margin-bottom:12px;"><label style="font-weight:600">Image URL</label><input id="adminArtistImage" class="form-input" placeholder="https://..."></div>
+            <div style="margin-bottom:12px;"><label style="font-weight:600">Description</label><textarea id="adminArtistDescription" class="form-textarea" rows="4"></textarea></div>
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><input type="checkbox" id="adminArtistFeatured"><label style="margin:0">Featured</label></div>
+            <div style="display:flex;gap:8px;"><button type="submit" class="btn btn-primary" id="adminSaveBtn">💾 Save</button><button type="button" class="btn" id="adminCancelBtn">Cancel</button></div>
+          </form>
+        </div>
+
+        <div style="background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(10,20,40,0.04);margin-top:14px;">
+          <h3 style="margin-top:0">Data & Settings</h3>
+          <div style="margin-bottom:12px;"><button id="adminExportBtn" class="btn btn-success">📥 Export JSON</button></div>
+          <div style="margin-bottom:12px;"><input id="adminImportInput" type="file" accept="application/json" class="form-input"></div>
+          <div style="margin-bottom:12px;"><button id="adminClearBtn" class="btn btn-danger">🗑️ Clear All</button></div>
+          <hr>
+          <p style="margin:0 0 6px 0"><strong>Total Artists:</strong> <span id="adminTotalArtists">0</span></p>
+          <p style="margin:0 0 6px 0"><strong>Total Stages:</strong> <span id="adminTotalStages">0</span></p>
+          <p style="margin:0"><strong>Total Genres:</strong> <span id="adminTotalGenres">0</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function(){
-      const PASSWORD = 'M4M2026'; // client-side password (provided)
+      const PASSWORD = 'M4M2026';
       const submit = document.getElementById('submit');
       const pwd = document.getElementById('pwd');
       const err = document.getElementById('err');
+      const loginCard = document.getElementById('loginCard');
+      const adminApp = document.getElementById('adminApp');
 
-      function getReturnUrl(){
-        const params = new URLSearchParams(window.location.search);
-        const ret = params.get('return');
-        if (ret) return decodeURIComponent(ret);
-        // default to festival page
-        return '/festival-lineup-wordpress-fixed.html?admin=true';
+      // Admin storage key
+      const STORAGE_KEY = 'festival_lineup_artists';
+
+      function loadArtists(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : [];
+        }catch(e){ return []; }
       }
 
-      submit.addEventListener('click', () => {
-        if (pwd.value === PASSWORD) {
-          sessionStorage.setItem('festival_admin_auth', 'true');
-          // Redirect back to return url (and ensure admin param)
-          let ret = getReturnUrl();
-          if (ret.indexOf('admin=true') === -1) {
-            ret += (ret.indexOf('?') === -1 ? '?' : '&') + 'admin=true';
-          }
-          window.location.href = ret;
-        } else {
-          err.style.display = 'block';
-        }
-      });
+      function saveArtists(list){ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
 
-      pwd.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit.click(); });
+      // UI elements
+      const artistListEl = document.getElementById('adminArtistList');
+      const form = document.getElementById('adminAddArtistForm');
+      const editIdEl = document.getElementById('adminEditId');
+      const nameEl = document.getElementById('adminArtistName');
+      const stageEl = document.getElementById('adminArtistStage');
+      const dateEl = document.getElementById('adminArtistDate');
+      const timeEl = document.getElementById('adminArtistTime');
+      const genreEl = document.getElementById('adminArtistGenre');
+      const imageEl = document.getElementById('adminArtistImage');
+      const descEl = document.getElementById('adminArtistDescription');
+      const featuredEl = document.getElementById('adminArtistFeatured');
+      const cancelBtn = document.getElementById('adminCancelBtn');
+      const exportBtn = document.getElementById('adminExportBtn');
+      const importInput = document.getElementById('adminImportInput');
+      const clearBtn = document.getElementById('adminClearBtn');
+      const logoutBtn = document.getElementById('adminLogout');
+
+      function renderList(){
+        const artists = loadArtists();
+        artistListEl.innerHTML = '';
+        if (artists.length === 0){ artistListEl.innerHTML = '<p>No artists yet.</p>'; }
+        const sorted = [...artists].sort((a,b)=> new Date(a.date)-new Date(b.date));
+        sorted.forEach(a=>{
+          const item = document.createElement('div');
+          item.style.display='flex';item.style.justifyContent='space-between';item.style.alignItems='center';item.style.padding='8px 0';
+          item.innerHTML = `<div><strong>${a.name}</strong><div style="font-size:0.9rem;color:#666">${a.stage} • ${formatDate(a.date)} ${a.time ? ' • ' + a.time : ''}</div></div><div style="display:flex;gap:8px"><button data-edit="${a.id}" class="btn">✏️</button><button data-delete="${a.id}" class="btn btn-danger">🗑️</button></div>`;
+          artistListEl.appendChild(item);
+        });
+
+        // Attach handlers
+        artistListEl.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click', ()=>{ const id=b.getAttribute('data-edit'); editArtist(id);}));
+        artistListEl.querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click', ()=>{ const id=b.getAttribute('data-delete'); deleteArtist(id);}));
+
+        updateStats();
+        updateDataLists();
+      }
+
+      function formatDate(d){ if(!d) return ''; const date = new Date(d+'T00:00:00'); return date.toLocaleDateString(); }
+
+      function resetForm(){ editIdEl.value=''; form.reset(); document.getElementById('adminSaveBtn').textContent='💾 Save'; }
+
+      function editArtist(id){ const artists=loadArtists(); const a=artists.find(x=>x.id===id); if(!a) return; editIdEl.value=a.id; nameEl.value=a.name; stageEl.value=a.stage; dateEl.value=a.date; timeEl.value=a.time||''; genreEl.value=a.genre; imageEl.value=a.image||''; descEl.value=a.description||''; featuredEl.checked = !!a.featured; document.getElementById('adminSaveBtn').textContent='💾 Update'; }
+
+      function deleteArtist(id){ if(!confirm('Delete this artist?')) return; let artists=loadArtists(); artists=artists.filter(a=>a.id!==id); saveArtists(artists); renderList(); alert('Deleted'); }
+
+      form.addEventListener('submit', (e)=>{ e.preventDefault(); const artists=loadArtists(); const id = editIdEl.value || Date.now().toString(); const artist={ id, name: nameEl.value.trim(), stage: stageEl.value.trim(), date: dateEl.value, time: timeEl.value, genre: genreEl.value.trim(), image: imageEl.value.trim(), description: descEl.value.trim(), featured: featuredEl.checked }; if (editIdEl.value){ const idx = artists.findIndex(x=>x.id===id); if (idx>-1) artists[idx]=artist; alert('Updated'); } else { artists.push(artist); alert('Added'); } saveArtists(artists); renderList(); resetForm(); });
+
+      cancelBtn.addEventListener('click', ()=>resetForm());
+
+      exportBtn.addEventListener('click', ()=>{ const data={version:'1.0',exportDate:new Date().toISOString(),artists:loadArtists()}; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`festival-lineup-${new Date().toISOString().split('T')[0]}.json`; a.click(); URL.revokeObjectURL(url); alert('Exported'); });
+
+      importInput.addEventListener('change',(e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=(ev)=>{ try{ const data=JSON.parse(ev.target.result); if(!data.artists||!Array.isArray(data.artists)) throw new Error('Invalid'); if(!confirm(`Import ${data.artists.length} artists? This will replace current data.`)) return; saveArtists(data.artists); renderList(); alert('Imported'); }catch(err){ alert('Failed to import'); } }; r.readAsText(f); e.target.value=''; });
+
+      clearBtn.addEventListener('click', ()=>{ if(confirm('Delete ALL artists?')){ saveArtists([]); renderList(); alert('Cleared'); } });
+
+      function updateStats(){ const artists=loadArtists(); document.getElementById('adminTotalArtists').textContent = artists.length; document.getElementById('adminTotalStages').textContent = new Set(artists.map(a=>a.stage)).size; document.getElementById('adminTotalGenres').textContent = new Set(artists.map(a=>a.genre)).size; }
+
+      function updateDataLists(){ const artists=loadArtists(); const stages = [...new Set(artists.map(a=>a.stage))]; const genres = [...new Set(artists.map(a=>a.genre))]; document.getElementById('adminStageList').innerHTML = stages.map(s=>`<option value="${s}">`).join(''); document.getElementById('adminGenreList').innerHTML = genres.map(g=>`<option value="${g}">`).join(''); }
+
+      function showAdmin(){ loginCard.style.display='none'; adminApp.style.display='block'; renderList(); }
+
+      // Logout
+      logoutBtn.addEventListener('click', ()=>{ sessionStorage.removeItem('festival_admin_auth'); adminApp.style.display='none'; loginCard.style.display='block'; });
+
+      // On load
+      (function(){
+        if (sessionStorage.getItem('festival_admin_auth') === 'true'){
+          showAdmin();
+        }
+
+        submit.addEventListener('click', ()=>{
+          if (pwd.value === PASSWORD){
+            sessionStorage.setItem('festival_admin_auth','true');
+            showAdmin();
+          } else {
+            err.style.display='block';
+          }
+        });
+
+        pwd.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit.click(); });
+      })();
     })();
   </script>
 </body>

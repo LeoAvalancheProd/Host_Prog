@@ -1,6 +1,9 @@
-# Host_Prog
+# Host_Prog (ProgFest)
 
-Festival Lineup static site
+**ProgFest — Festival Lineup**
+
+Festival Lineup static site (branded *ProgFest*). Hosted on GitHub Pages — use the repository Pages URL to view the live site.
+
 
 This repository contains a single-page interactive festival lineup that includes an admin panel stored in the browser (LocalStorage). It can be hosted as a static site using GitHub Pages.
 

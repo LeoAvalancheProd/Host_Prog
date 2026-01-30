@@ -20,6 +20,7 @@
     <h1>Admin Login</h1>
     <div class="hint">Enter the admin password to access the Lineup Manager.</div>
     <div id="err" class="error">Invalid password</div>
+    <div id="attemptInfo" class="hint" style="display:block;font-size:0.9rem;color:#666;margin-bottom:8px"></div>
     <input id="pwd" type="password" placeholder="Password">
     <button id="submit">Unlock Admin</button>
     <div class="note">Password is stored only in your browser session (client-side). Use carefully.</div>
@@ -79,11 +80,16 @@
       const submit = document.getElementById('submit');
       const pwd = document.getElementById('pwd');
       const err = document.getElementById('err');
+      const attemptInfo = document.getElementById('attemptInfo');
       const loginCard = document.getElementById('loginCard');
       const adminApp = document.getElementById('adminApp');
 
       // Admin storage key
       const STORAGE_KEY = 'festival_lineup_artists';
+      const FAIL_KEY = 'festival_admin_failed';
+      const MAX_ATTEMPTS = 5;          // lock after 5 failed attempts
+      const LOCKOUT_MS = 10 * 60 * 1000; // 10 minutes lockout
+      const COOLDOWN_MS = 3000;       // 3 seconds cooldown after each failed try
 
       function loadArtists(){
         try{
@@ -93,6 +99,24 @@
       }
 
       function saveArtists(list){ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+
+      function getFailInfo(){
+        try{ const raw = localStorage.getItem(FAIL_KEY); return raw ? JSON.parse(raw) : {count:0,lockedUntil:0}; }catch(e){ return {count:0,lockedUntil:0}; }
+      }
+      function setFailInfo(info){ localStorage.setItem(FAIL_KEY, JSON.stringify(info)); }
+      function resetFailInfo(){ localStorage.removeItem(FAIL_KEY); }
+
+      function isLockedOut(){ const info = getFailInfo(); return info.lockedUntil && Date.now() < info.lockedUntil; }
+      function lockRemainingMs(){ const info = getFailInfo(); return Math.max(0, (info.lockedUntil || 0) - Date.now()); }
+
+      function recordFailedAttempt(){ const info = getFailInfo(); info.count = (info.count || 0) + 1; if (info.count >= MAX_ATTEMPTS) { info.lockedUntil = Date.now() + LOCKOUT_MS; } setFailInfo(info); updateAttemptDisplay(); }
+
+      function updateAttemptDisplay(){ const info = getFailInfo(); if (isLockedOut()){
+          const ms = lockRemainingMs(); const mins = Math.floor(ms/60000); const secs = Math.floor((ms%60000)/1000); attemptInfo.textContent = `Locked due to too many failed attempts. Try again in ${mins}m ${secs}s.`; attemptInfo.style.color = '#c53030';
+        } else {
+          const left = Math.max(0, MAX_ATTEMPTS - (info.count || 0)); attemptInfo.textContent = `Failed attempts: ${info.count || 0}. Attempts left: ${left}.`; attemptInfo.style.color = '#666';
+        }
+      }
 
       // UI elements
       const artistListEl = document.getElementById('adminArtistList');

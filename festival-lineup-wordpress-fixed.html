@@ -697,10 +697,20 @@ INSTALLATION:
 <!-- Admin is managed on a dedicated page: /admin.html -->
 <!-- Removed inline admin UI — use /admin.html to manage artists -->
 
+<!-- Quick admin shortcut button (works in file:// and hosted) -->
+<button id="festivalAdminToggleBtn" class="admin-toggle-btn" title="Admin">🔧</button>
 
 <script>
 (function() {
     'use strict';
+
+    // Base path helper to support file:// and hosted environments
+    const _festival_basePath = (function(){
+        const href = window.location.href.split('#')[0].split('?')[0];
+        return href.endsWith('/') ? href : href.substring(0, href.lastIndexOf('/')+1);
+    })();
+    function _festival_adminHref(returnUrl) { return `${_festival_basePath}admin.html${returnUrl ? '?return=' + returnUrl : ''}`; }
+    function _festival_isAdminAuth() { return sessionStorage.getItem('festival_admin_auth') === 'true' || localStorage.getItem('festival_admin_auth') === 'true'; }
     
     class FestivalLineupCMS {
         constructor() {
@@ -725,7 +735,7 @@ INSTALLATION:
                 if (e.ctrlKey && e.shiftKey && e.key === 'A') {
                     e.preventDefault();
                     const returnUrl = encodeURIComponent(window.location.pathname + window.location.search + '#adminShortcut');
-                    window.location.href = `/admin.html?return=${returnUrl}`;
+                    window.location.href = _festival_adminHref(returnUrl);
                 }
             });
         }
@@ -795,7 +805,7 @@ INSTALLATION:
             if (adminToggle) {
                 adminToggle.addEventListener('click', () => {
                     const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-                    window.location.href = `/admin.html?return=${returnUrl}`;
+                    window.location.href = _festival_adminHref(returnUrl);
                 });
             }
 
@@ -809,6 +819,7 @@ INSTALLATION:
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', () => {
                     sessionStorage.removeItem('festival_admin_auth');
+                    localStorage.removeItem('festival_admin_auth');
                     alert('🔒 Logged out');
                 });
             }
@@ -844,7 +855,7 @@ INSTALLATION:
                 return;
             }
             const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-            window.location.href = `/admin.html?return=${returnUrl}`;
+            window.location.href = _festival_adminHref(returnUrl);
         }
 
         switchTab(tabName) {
@@ -1204,12 +1215,12 @@ INSTALLATION:
 
     // Check for admin parameter (requires prior authentication)
     if (window.location.search.includes('admin=true')) {
-        if (sessionStorage.getItem('festival_admin_auth') === 'true') {
+        if (_festival_isAdminAuth()) {
             festivalLineup.toggleAdmin();
         } else {
             const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
             // Redirect to admin login to authenticate, then return
-            window.location.href = `/admin.html?return=${returnUrl}`;
+            window.location.href = _festival_adminHref(returnUrl);
         }
     }
 

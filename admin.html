@@ -208,17 +208,18 @@
       function showAdmin(){ loginCard.style.display='none'; adminApp.style.display='block'; renderList(); renderAudit(); }
 
       // Logout
-      logoutBtn.addEventListener('click', ()=>{ sessionStorage.removeItem('festival_admin_auth'); recordAudit('logout','admin logged out'); adminApp.style.display='none'; loginCard.style.display='block'; });
+      logoutBtn.addEventListener('click', ()=>{ sessionStorage.removeItem('festival_admin_auth'); localStorage.removeItem('festival_admin_auth'); recordAudit('logout','admin logged out'); adminApp.style.display='none'; loginCard.style.display='block'; });
 
       // On load
       (function(){
-        if (sessionStorage.getItem('festival_admin_auth') === 'true'){
+        if (sessionStorage.getItem('festival_admin_auth') === 'true' || localStorage.getItem('festival_admin_auth') === 'true'){
           showAdmin();
         }
 
         submit.addEventListener('click', ()=>{
           if (pwd.value === PASSWORD){
             sessionStorage.setItem('festival_admin_auth','true');
+            localStorage.setItem('festival_admin_auth','true');
             showAdmin();
           } else {
             err.style.display='block';
